@@ -1,0 +1,23 @@
+input {
+  margin-bottom: 5px;
+}
+
+.navbar-brand, .navbar-link, .navbar-text{
+  color: white;
+}
+
+.jy-below-nav {
+  margin-top: 60px;
+}
+
+.jy-nav-left-margin {
+  margin-left: 15px;
+}
+
+.jy-nav-right-margin {
+  margin-right: 15px;
+}
+
+.jy-no-margin {
+  margin: 0px;
+}
