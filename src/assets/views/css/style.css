@@ -2,7 +2,7 @@ input {
   margin-bottom: 5px;
 }
 
-.navbar-brand, .navbar-link, .navbar-text{
+.navbar-brand, .navbar-brand:hover, .navbar-link, .navbar-text{
   color: white;
 }
 
@@ -20,4 +20,13 @@ input {
 
 .jy-no-margin {
   margin: 0px;
+}
+
+.jy-right-border-line {
+  border-right: thin gray solid;
+  height: 100%;
+}
+
+.jv-no-left-padding {
+  padding-left: 0px;
 }
