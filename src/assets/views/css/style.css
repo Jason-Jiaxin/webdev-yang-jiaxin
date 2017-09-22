@@ -30,3 +30,7 @@ input {
 .jv-no-left-padding {
   padding-left: 0px;
 }
+
+.jy-no-border {
+  border: none;
+}
