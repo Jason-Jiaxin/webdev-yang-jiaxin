@@ -1,1 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
+input {
+  margin-bottom: 5px;
+}
+
+.navbar-brand, .navbar-brand:hover, .navbar-link, .navbar-text{
+  color: white;
+}
+
+.jy-below-nav {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.jy-nav-left-margin {
+  margin-left: 15px;
+}
+
+.jy-nav-right-margin {
+  margin-right: 15px;
+}
+
+.jy-no-margin {
+  margin: 0px;
+}
+
+.jy-right-border-line {
+  border-right: thin gray solid;
+  height: 100%;
+}
+
+.jv-no-left-padding {
+  padding-left: 0px;
+}
+
+.jy-no-border {
+  border: none;
+}
+
+.jy-toolbar {
+  position: absolute;
+  right: 0px;
+  background-color: whitesmoke;
+  padding: 7px;
+  border-bottom-left-radius: 8px;
+  opacity: 0.7;
+}
+
+.jy-widget-content {
+  width: 100%;
+}
