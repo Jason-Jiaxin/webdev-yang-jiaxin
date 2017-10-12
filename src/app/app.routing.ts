@@ -20,9 +20,9 @@ import { WidgetYoutubeComponent } from './components/widget/widget-edit/widget-y
 
 
 const APP_ROUTES: Routes = [
-  // { path : '', component : HomeComponent},
-  // { path : 'test', component: TestComponent},
-  { path : 'login, , default' , component: LoginComponent},
+  { path : '', component : HomeComponent},
+  { path : 'test', component: TestComponent},
+  { path : 'login' , component: LoginComponent},
   { path : 'register' , component: RegisterComponent },
   { path : 'user/:uid' , component: ProfileComponent},
   { path : 'user/:uid/website' , component: WebsiteListComponent},

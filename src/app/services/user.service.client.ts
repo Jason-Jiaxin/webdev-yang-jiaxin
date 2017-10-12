@@ -27,7 +27,7 @@ export class UserService {
   };
 
   createUser(user: any) {
-    user._id = Math.random();
+    user._id = this.getRandomInt(1000, 10000).toString();
     this.users.push(user);
     return user;
   }
@@ -64,5 +64,9 @@ export class UserService {
         this.users.splice(x, 1);
       }
     }
+  }
+
+  getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 }
