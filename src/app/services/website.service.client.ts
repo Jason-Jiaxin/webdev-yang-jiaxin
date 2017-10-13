@@ -29,7 +29,7 @@ export class WebsiteService {
   };
 
   createWebsite(userId, website) {
-    website._id = Math.random();
+    website._id = this.getRandomInt(1000, 10000).toString();
     website.developerId = userId;
     this.websites.push(website);
     return(website);
@@ -67,5 +67,9 @@ export class WebsiteService {
         this.websites.splice(x, 1);
       }
     }
+  }
+
+  getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 }

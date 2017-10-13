@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { WebsiteService} from '../../../services/website.service.client';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-website-list',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WebsiteListComponent implements OnInit {
 
-  constructor() { }
+  userId: string;
+  websites = [];
+
+  constructor(private webService: WebsiteService, private acRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.acRoute.params.subscribe(params => {
+      this.userId = params['uid'];
+      this.websites = this.webService.findWebsitesByUser(this.userId);
+    });
   }
 
 }
