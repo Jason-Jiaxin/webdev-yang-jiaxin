@@ -26,7 +26,7 @@ export class PageService {
   };
 
   createPage(websiteId, page) {
-    page._id = Math.random();
+    page._id = this.getRandomInt(1000, 10000).toString();
     page.websiteId = websiteId;
     this.pages.push(page);
     return(page);
@@ -64,5 +64,9 @@ export class PageService {
         this.pages.splice(x, 1);
       }
     }
+  }
+
+  getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 }

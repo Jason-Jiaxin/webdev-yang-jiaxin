@@ -1,12 +1,12 @@
 <nav class="navbar navbar-dark bg-primary navbar-fixed-top">
   <p class="navbar-text pull-left jy-nav-left-margin">
-    <a href="../website/website-list.html" class="navbar-link">
+    <a routerLink="/user/{{userId}}/website" class="navbar-link">
       <span class="glyphicon glyphicon-chevron-left"></span>
     </a>
   </p>
   <a class="navbar-brand"><b>Pages</b></a>
   <p class="navbar-text pull-right jy-nav-right-margin">
-    <a href="page-new.html" class="navbar-link">
+    <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/new" class="navbar-link">
       <span class="glyphicon glyphicon-plus"></span>
     </a>
   </p>
@@ -32,57 +32,19 @@
       </div>
     </li>
 
-    <li class="list-group-item">
+    <li *ngFor="let page of pages" class="list-group-item">
       <div class="row">
         <div class="col-xs-9 col-sm-6 col-md-3">
-          <a href="../widget/widget-list.html">Blog Posts</a>
+          <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{page._id}}/widget">{{page.name}}</a>
         </div>
         <div class="col-sm-3 hidden-xs">
-          <p class="jy-no-margin">Alice</p>
+          <p class="jy-no-margin">{{page.owner}}</p>
         </div>
         <div class="col-md-3 hidden-xs hidden-sm">
-          <p class="jy-no-margin">3/23/2017</p>
+          <p class="jy-no-margin">{{page.dateCreated}}</p>
         </div>
         <div class="col-xs-3">
-          <a href="page-edit.html" class="pull-right">
-            <span class="glyphicon glyphicon-cog"></span>
-          </a>
-        </div>
-      </div>
-    </li>
-
-    <li class="list-group-item">
-      <div class="row">
-        <div class="col-xs-9 col-sm-6 col-md-3">
-          <a href="../widget/widget-list.html">Home</a>
-        </div>
-        <div class="col-sm-3 hidden-xs">
-          <p class="jy-no-margin">Bob</p>
-        </div>
-        <div class="col-md-3 hidden-xs hidden-sm">
-          <p class="jy-no-margin">5/23/2017</p>
-        </div>
-        <div class="col-xs-3">
-          <a href="page-edit.html" class="pull-right">
-            <span class="glyphicon glyphicon-cog"></span>
-          </a>
-        </div>
-      </div>
-    </li>
-
-    <li class="list-group-item">
-      <div class="row">
-        <div class="col-xs-9 col-sm-6 col-md-3">
-          <a href="../widget/widget-list.html">About</a>
-        </div>
-        <div class="col-sm-3 hidden-xs">
-          <p class="jy-no-margin">Trace</p>
-        </div>
-        <div class="col-md-3 hidden-xs hidden-sm">
-          <p class="jy-no-margin">7/23/2017</p>
-        </div>
-        <div class="col-xs-3">
-          <a href="page-edit.html" class="pull-right">
+          <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{page._id}}" class="pull-right">
             <span class="glyphicon glyphicon-cog"></span>
           </a>
         </div>
@@ -96,7 +58,7 @@
 
 <nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
   <p class="navbar-text pull-right jy-nav-right-margin">
-    <a href="../user/profile.html" class="navbar-link">
+    <a routerLink="/user/{{userId}}" class="navbar-link">
       <span class="glyphicon glyphicon-user"></span>
     </a>
   </p>
