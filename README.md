@@ -12,5 +12,5 @@ This repository is used to host my assignments and project for fall 2017 web dev
 
 [Project].
 
-[Assignment](https://webdev-yang-jiaxin.herokuapp.com/assets/index.html).
+[Assignment](https://webdev-yang-jiaxin.herokuapp.com/login).
 
