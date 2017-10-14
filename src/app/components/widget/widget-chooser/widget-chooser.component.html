@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-primary navbar-fixed-top">
   <p class="navbar-text pull-left jy-nav-left-margin">
-    <a href="widget-list.html" class="navbar-link">
+    <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget"  class="navbar-link">
       <span class="glyphicon glyphicon-chevron-left"></span>
     </a>
   </p>
@@ -10,34 +10,34 @@
 <div class="container-fluid jy-below-nav">
   <ul class="list-group">
     <li class="list-group-item jy-no-border">
-      <a href="widget-heading.html">Header</a>
+      <a (click)="createWidget('HEADING')">Header</a>
     </li>
     <li class="list-group-item jy-no-border">
-      <a href="#">Label</a>
+      <a routerLink="./">Label</a>
     </li>
     <li class="list-group-item jy-no-border">
-      <a href="#">HTML</a>
+      <a routerLink="./">HTML</a>
     </li>
     <li class="list-group-item jy-no-border">
-      <a href="#">Text Input</a>
+      <a routerLink="./">Text Input</a>
     </li>
     <li class="list-group-item jy-no-border">
-      <a href="#">Link</a>
+      <a routerLink="./">Link</a>
     </li>
     <li class="list-group-item jy-no-border">
-      <a href="#">Button</a>
+      <a routerLink="./">Button</a>
     </li>
     <li class="list-group-item jy-no-border">
-      <a href="widget-image.html">Image</a>
+      <a (click)="createWidget('IMAGE')">Image</a>
     </li>
     <li class="list-group-item jy-no-border">
-      <a href="widget-youtube.html">YouTube</a>
+      <a (click)="createWidget('YOUTUBE')">YouTube</a>
     </li>
     <li class="list-group-item jy-no-border">
-      <a href="#">Data Table</a>
+      <a routerLink="./">Data Table</a>
     </li>
     <li class="list-group-item jy-no-border">
-      <a href="#">Repeater</a>
+      <a routerLink="./">Repeater</a>
     </li>
   </ul>
 </div>
@@ -45,7 +45,7 @@
 
 <nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
   <p class="navbar-text pull-right jy-nav-right-margin">
-    <a href="../user/profile.html" class="navbar-link">
+    <a routerLink="/user/{{userId}}" class="navbar-link">
       <span class="glyphicon glyphicon-user"></span>
     </a>
   </p>

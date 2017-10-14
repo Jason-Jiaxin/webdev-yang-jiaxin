@@ -49,3 +49,7 @@ input {
 .jy-widget-content {
   width: 100%;
 }
+
+a:not([href]) {
+  cursor: pointer;
+}

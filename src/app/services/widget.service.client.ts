@@ -33,7 +33,7 @@ export class WidgetService {
   };
 
   createWidget(pageId, widget) {
-    widget._id = Math.random();
+    widget._id = this.getRandomInt(1000, 10000).toString();
     widget.pageId = pageId;
     this.widgets.push(widget);
     return(widget);
@@ -71,5 +71,9 @@ export class WidgetService {
         this.widgets.splice(x, 1);
       }
     }
+  }
+
+  getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 }
