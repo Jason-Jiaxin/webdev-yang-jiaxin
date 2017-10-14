@@ -1,41 +1,24 @@
 
-<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
-  <p class="navbar-text pull-left jy-nav-left-margin">
-    <a href="widget-list.html" class="navbar-link">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
-  </p>
-  <a class="navbar-brand"><b>Edit Widget</b></a>
-  <p class="navbar-text pull-right jy-nav-right-margin">
-    <a href="widget-list.html" class="navbar-link">
-      <span class="glyphicon glyphicon-ok"></span>
-    </a>
-  </p>
-
-</nav>
-
 <div class="container-fluid jy-below-nav">
   <form>
     <div class="form-group">
       <label for="headingName">Name</label>
-      <input type="text" class="form-control" id="headingName" placeholder="Name">
+      <input [(ngModel)]="widget.name" type="text" class="form-control" id="headingName"
+             name="widgetName" placeholder="Name">
     </div>
     <div class="form-group">
       <label for="headingText">Text</label>
-      <input type="text" class="form-control" id="headingText" placeholder="Heading Text">
+      <input [(ngModel)]="widget.text" type="text" class="form-control" id="headingText"
+             name="widgetText" placeholder="Heading Text">
     </div>
     <div class="form-group">
       <label for="headingSize">Size</label>
-      <input type="text" class="form-control" id="headingSize" placeholder="1-6">
+      <input [(ngModel)]="widget.size" type="text" class="form-control" id="headingSize"
+             name="widgetSize" placeholder="1-6">
     </div>
   </form>
-  <a class="btn btn-danger btn-block" href="widget-list.html" >Delete</a>
+  <a (click)="deleteWidget()" class="btn btn-danger btn-block"
+     routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget" >Delete</a>
 </div>
 
-<nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
-  <p class="navbar-text pull-right jy-nav-right-margin">
-    <a href="../user/profile.html" class="navbar-link">
-      <span class="glyphicon glyphicon-user"></span>
-    </a>
-  </p>
-</nav>
+
