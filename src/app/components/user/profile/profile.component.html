@@ -1,0 +1,53 @@
+<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+
+  <a class="navbar-brand"><b>Profile</b></a>
+  <p class="navbar-text pull-right jy-nav-right-margin">
+    <a routerLink="/user/{{user._id}}" class="navbar-link">
+      <span class="glyphicon glyphicon-ok"></span>
+    </a>
+  </p>
+</nav>
+
+<div class="container jy-below-nav">
+  <form>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input [(ngModel)]="user.username" type="text" class="form-control" id="username" name="userName">
+    </div>
+  </form>
+
+  <form>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input [(ngModel)]="user.email" type="email" class="form-control" id="email" name="userEmail">
+    </div>
+  </form>
+
+  <form>
+    <div class="form-group">
+      <label for="first-name">First Name</label>
+      <input [(ngModel)]="user.firstName" type="text" class="form-control" id="first-name" name="userFName">
+    </div>
+  </form>
+
+  <form>
+    <div class="form-group">
+      <label for="last-name">Last Name</label>
+      <input [(ngModel)]="user.lastName" type="text" class="form-control" id="last-name" name="userLName">
+    </div>
+  </form>
+  <a class="btn btn-primary btn-block"
+     routerLink="/user/{{user._id}}/website">Websites</a>
+  <a class="btn btn-danger btn-block "
+     routerLink="/login" >Logout</a>
+
+</div>
+
+<!-- Footer -->
+<nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
+  <p class="navbar-text pull-right jy-nav-right-margin">
+    <a routerLink="/user/{{user._id}}" class="navbar-link">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </p>
+</nav>

@@ -1,0 +1,65 @@
+<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+  <p class="navbar-text pull-left jy-nav-left-margin">
+    <a routerLink="/user/{{userId}}/website" class="navbar-link">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+  </p>
+  <a class="navbar-brand"><b>Pages</b></a>
+  <p class="navbar-text pull-right jy-nav-right-margin">
+    <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/new" class="navbar-link">
+      <span class="glyphicon glyphicon-plus"></span>
+    </a>
+  </p>
+</nav>
+
+<div class="container-fluid jy-below-nav">
+  <ul class="list-group">
+    <li class="list-group-item active">
+      <div class="row">
+        <div class="col-xs-9 col-sm-6 col-md-3">
+          <p class="jy-no-margin">Name</p>
+        </div>
+        <div class="col-sm-3 hidden-xs">
+          <p class="jy-no-margin">Owner</p>
+        </div>
+        <div class="col-md-3 hidden-xs hidden-sm">
+          <p class="jy-no-margin">Date created</p>
+        </div>
+        <div class="col-xs-3">
+          <p class="jy-no-margin pull-right">Edit</p>
+        </div>
+
+      </div>
+    </li>
+
+    <li *ngFor="let page of pages" class="list-group-item">
+      <div class="row">
+        <div class="col-xs-9 col-sm-6 col-md-3">
+          <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{page._id}}/widget">{{page.name}}</a>
+        </div>
+        <div class="col-sm-3 hidden-xs">
+          <p class="jy-no-margin">{{page.owner}}</p>
+        </div>
+        <div class="col-md-3 hidden-xs hidden-sm">
+          <p class="jy-no-margin">{{page.dateCreated}}</p>
+        </div>
+        <div class="col-xs-3">
+          <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{page._id}}" class="pull-right">
+            <span class="glyphicon glyphicon-cog"></span>
+          </a>
+        </div>
+      </div>
+    </li>
+
+  </ul>
+
+</div>
+
+
+<nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
+  <p class="navbar-text pull-right jy-nav-right-margin">
+    <a routerLink="/user/{{userId}}" class="navbar-link">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </p>
+</nav>

@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>Register</h1>
+  <form (ngSubmit) = "register()" #f="ngForm">
+    <input name="username" placeholder="username" type="text" class="form-control"
+           required [(ngModel)] = "username"/>
+    <input name="password1" placeholder="password" type="password" class="form-control"
+           required [(ngModel)] = "password1"/>
+    <input name="password2" placeholder="verify password" type="password" class="form-control"
+           required [(ngModel)] = "password2"/>
+    <div *ngIf="errorFlag" class="alert alert-danger">
+      {{errorMsg}}
+    </div>
+    <button class="btn btn-primary btn-block" type="submit" [disabled]="!f.valid">Register</button>
+    <a class="btn btn-danger btn-block" routerLink="/login" >Cancel</a>
+  </form>
+
+</div>

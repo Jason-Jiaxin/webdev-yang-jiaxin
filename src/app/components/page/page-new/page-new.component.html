@@ -1,0 +1,78 @@
+<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+  <div class="row">
+    <div class="col-sm-4 hidden-xs">
+      <p class="navbar-text pull-left jy-nav-left-margin">
+        <a routerLink="/user/{{userId}}/website/{{websiteId}}/page" class="navbar-link">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+      </p>
+      <a class="navbar-brand"><b>Pages</b></a>
+      <p class="navbar-text pull-right jy-nav-right-margin">
+        <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/new" class="navbar-link">
+          <span class="glyphicon glyphicon-plus"></span>
+        </a>
+      </p>
+    </div>
+    <div class="col-xs-12 col-sm-8">
+      <p class="navbar-text pull-left jy-nav-left-margin jy-nav-right-margin hidden-sm hidden-md hidden-lg">
+        <a routerLink="/user/{{userId}}/website/{{websiteId}}/page" class="navbar-link">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+      </p>
+      <a class="navbar-brand jv-no-left-padding"><b>New Page</b></a>
+      <p class="navbar-text pull-right jy-nav-right-margin">
+        <a (click)="createPage()" class="navbar-link">
+          <span class="glyphicon glyphicon-ok"></span>
+        </a>
+      </p>
+    </div>
+  </div>
+
+</nav>
+
+<div class="container-fluid jy-below-nav">
+  <div class="row">
+    <div class="col-sm-4 hidden-xs">
+      <ul class="list-group">
+
+        <li *ngFor="let page of pages" class="list-group-item">
+          <div class="row">
+            <div class="col-xs-9">
+              <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{page._id}}/widget">{{page.name}}</a>
+            </div>
+
+            <div class="col-xs-3">
+              <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{page._id}}" class="pull-right">
+                <span class="glyphicon glyphicon-cog"></span>
+              </a>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+    <div class="col-xs-12 col-sm-8">
+      <form>
+        <div class="form-group">
+          <label for="pageName">Name</label>
+          <input [(ngModel)]="pageName" type="text" class="form-control" id="pageName"
+                 name="pageName" placeholder="Page Name">
+        </div>
+        <div class="form-group">
+          <label for="pageTitle">Title</label>
+          <input [(ngModel)]="pageDesp" type="text" class="form-control" id="pageTitle"
+                 name="pageDesp" placeholder="Page Title">
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
+  <p class="navbar-text pull-right jy-nav-right-margin">
+    <a routerLink="/user/{{userId}}" class="navbar-link">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </p>
+</nav>

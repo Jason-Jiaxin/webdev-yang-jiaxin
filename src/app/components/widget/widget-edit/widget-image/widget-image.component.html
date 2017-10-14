@@ -1,0 +1,32 @@
+
+<div class="container-fluid jy-below-nav">
+  <form>
+    <div class="form-group">
+      <label for="imageName">Name</label>
+      <input [(ngModel)]="widget.name" type="text" class="form-control" id="imageName"
+             name="widgetName" placeholder="Name">
+    </div>
+    <div class="form-group">
+      <label for="imageText">Text</label>
+      <input [(ngModel)]="widget.text" type="text" class="form-control" id="imageText"
+             name="widgetText" placeholder="Text">
+    </div>
+    <div class="form-group">
+      <label for="imageURL">URL</label>
+      <input [(ngModel)]="widget.url" type="text" class="form-control" id="imageURL"
+             name="widgetUrl" placeholder="">
+    </div>
+    <div class="form-group">
+      <label for="imageWidth">Width</label>
+      <input [(ngModel)]="widget.width" type="text" class="form-control" id="imageWidth"
+             name="widgetWidth" placeholder="100%">
+    </div>
+    <div class="form-group">
+      <label for="imageUpload">Upload</label>
+      <input type="file" class="form-control" id="imageUpload">
+    </div>
+  </form>
+  <a class="btn btn-primary btn-block" disabled="true" >Upload Image</a>
+  <a (click)="deleteWidget()" class="btn btn-danger btn-block"
+     routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget" >Delete</a>
+</div>
