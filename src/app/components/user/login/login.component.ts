@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {UserService} from '../../../services/user.service.client';
 import {Router} from '@angular/router';
+import {User} from '../../../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -26,13 +27,15 @@ export class LoginComponent implements OnInit {
     // fetching data from loginForm
     this.username = this.loginForm.value.username;
     this.password = this.loginForm.value.password;
-    const user = this.userService.findUserByCredentials(this.username, this.password);
-    if (user) {
-      this.router.navigate(['user', user._id]);
-    } else {
-      this.errorFlag = true;
-    }
-
+    this.userService.findUserByCredentials(this.username, this.password)
+      .subscribe((user: User) => {
+        if (user) {
+          console.log(user);
+          this.router.navigate(['user', user._id]);
+        } else {
+          this.errorFlag = true;
+        }
+      });
   }
 
 }
