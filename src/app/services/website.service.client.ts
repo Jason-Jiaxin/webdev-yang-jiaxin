@@ -8,17 +8,9 @@ import { Router } from '@angular/router';
 @Injectable()
 export class WebsiteService {
 
-  constructor() { }
+  baseUrl = environment.baseUrl;
 
-  websites = [
-    { '_id': '123', 'name': 'Facebook',    'developerId': '456', 'description': 'Lorem' },
-    { '_id': '234', 'name': 'Tweeter',     'developerId': '456', 'description': 'Lorem' },
-    { '_id': '456', 'name': 'Gizmodo',     'developerId': '456', 'description': 'Lorem' },
-    { '_id': '890', 'name': 'Go',          'developerId': '123', 'description': 'Lorem' },
-    { '_id': '567', 'name': 'Tic Tac Toe', 'developerId': '123', 'description': 'Lorem' },
-    { '_id': '678', 'name': 'Checkers',    'developerId': '123', 'description': 'Lorem' },
-    { '_id': '789', 'name': 'Chess',       'developerId': '234', 'description': 'Lorem' }
-  ];
+  constructor(private http: Http) { }
 
   api = {
     'createWebsite'   : this.createWebsite,
@@ -29,47 +21,49 @@ export class WebsiteService {
   };
 
   createWebsite(userId, website) {
-    website._id = this.getRandomInt(1000, 10000).toString();
-    website.developerId = userId;
-    this.websites.push(website);
-    return(website);
+    return this.http.post(this.baseUrl + '/api/user/' + userId + '/website', website)
+      .map(
+        (res: Response) => {
+          return res.json();
+        }
+      );
   }
 
   findWebsitesByUser(userId) {
-    const res = [];
-    for (let x = 0; x < this.websites.length; x++) {
-      if (this.websites[x].developerId === userId) {
-        res.push(this.websites[x]);
-      }
-    }
-    return res;
+    return this.http.get(this.baseUrl + '/api/user/' + userId + '/website')
+      .map(
+        (res: Response) => {
+          return res.json();
+        }
+      );
   }
 
   findWebsiteById(websiteId) {
-    for (let x = 0; x < this.websites.length; x++) {
-      if (this.websites[x]._id === websiteId) {
-        return this.websites[x];
-      }
-    }
+    return this.http.get(this.baseUrl + '/api/website/' + websiteId)
+      .map(
+        (res: Response) => {
+          return res.json();
+        }
+      );
   }
 
   updateWebsite(websiteId, website) {
-    for (let x = 0; x < this.websites.length; x++) {
-      if (this.websites[x]._id === websiteId) {
-        this.websites[x] = website;
-      }
-    }
+    return this.http.put(this.baseUrl + '/api/website/' + websiteId, website)
+      .map(
+        (res: Response) => {
+          return res.json();
+        }
+      );
   }
 
   deleteWebsite(websiteId) {
-    for (let x = 0; x < this.websites.length; x++) {
-      if (this.websites[x]._id === websiteId) {
-        this.websites.splice(x, 1);
-      }
-    }
+    return this.http.delete(this.baseUrl + '/api/website/' + websiteId)
+      .map(
+        (res: Response) => {
+          return res.json();
+        }
+      );
   }
 
-  getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
+
 }

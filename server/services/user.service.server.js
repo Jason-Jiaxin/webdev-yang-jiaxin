@@ -58,7 +58,7 @@ module.exports = function (app) {
     let uid = req.params['userId'];
     let user = req.body;
     let index = users.findIndex(function (user) {
-      return user._id ===uid;
+      return user._id === uid;
     });
     users[index] = user;
   }
@@ -66,7 +66,7 @@ module.exports = function (app) {
   function deleteUser(req, res) {
     let uid = req.params['userId'];
     let index = users.findIndex(function (user) {
-      return user._id ===uid;
+      return user._id === uid;
     });
     users.splice(index, 1);
   }

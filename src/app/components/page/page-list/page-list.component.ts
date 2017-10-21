@@ -19,7 +19,10 @@ export class PageListComponent implements OnInit {
     this.acRoute.params.subscribe(params => {
       this.userId = params['uid'];
       this.websiteId = params['wid'];
-      this.pages = this.pageService.findPageByWebsiteId(this.websiteId);
+      this.pageService.findPageByWebsiteId(this.websiteId)
+        .subscribe((pages) => {
+          this.pages = pages;
+        });
     });
   }
 

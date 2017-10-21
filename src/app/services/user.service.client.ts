@@ -71,11 +71,11 @@ export class UserService {
   }
 
   deleteUser(userId) {
-    for (let x = 0; x < this.users.length; x++) {
-      if (this.users[x]._id === userId) {
-        this.users.splice(x, 1);
-      }
-    }
+    return this.http.delete(this.baseUrl + '/api/user/' + userId)
+      .map((res: Response) => {
+          return res.json();
+        }
+      );
   }
 
 

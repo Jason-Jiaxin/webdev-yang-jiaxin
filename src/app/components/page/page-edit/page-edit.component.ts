@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { PageService } from '../../../services/page.service.client';
 
 @Component({
@@ -15,20 +15,33 @@ export class PageEditComponent implements OnInit {
   page;
   pages;
 
-  constructor(private pageService: PageService, private acRoute: ActivatedRoute) { }
+  constructor(private pageService: PageService, private acRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.acRoute.params.subscribe(params => {
       this.userId = params['uid'];
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
-      this.page = this.pageService.findPageById(this.pageId);
-      this.pages = this.pageService.findPageByWebsiteId(this.websiteId);
+      this.pageService.findPageById(this.pageId)
+        .subscribe((page) => {
+          this.page = page;
+        });
+      this.pageService.findPageByWebsiteId(this.websiteId)
+        .subscribe((pages) => {
+          this.pages = pages;
+        });
     });
   }
 
   deletePage() {
-    this.pageService.deletePage(this.pageId);
+    this.pageService.deletePage(this.pageId).subscribe(() => {
+      this.router.navigate(['user', this.userId, 'website', this.websiteId, 'page']);
+    });
   }
 
+  updatePage() {
+    this.pageService.updatePage(this.pageId, this.page).subscribe((page) => {
+      this.router.navigate(['user', this.userId, 'website', this.websiteId, 'page']);
+    });
+  }
 }
