@@ -61,6 +61,7 @@ module.exports = function (app) {
       return user._id === uid;
     });
     users[index] = user;
+    res.json(user);
   }
 
   function deleteUser(req, res) {
@@ -69,6 +70,7 @@ module.exports = function (app) {
       return user._id === uid;
     });
     users.splice(index, 1);
+    res.json({});
   }
 
   function getRandomInt(min, max) {

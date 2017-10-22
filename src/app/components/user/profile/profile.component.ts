@@ -16,10 +16,12 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.acRoute.params.subscribe(params => {
+      console.log('Profile compoment params change');
       this.userId = params['uid'];
       this.userService.findUserById(this.userId)
         .subscribe((user: User) => {
-        this.user = user;
+          console.log('user found from service');
+          this.user = user;
         });
     });
   }
@@ -27,6 +29,7 @@ export class ProfileComponent implements OnInit {
   updateUser() {
     this.userService.updateUser(this.userId, this.user)
       .subscribe((user: User) => {
+        console.log('user updated from service');
         this.user = user;
       });
   }
