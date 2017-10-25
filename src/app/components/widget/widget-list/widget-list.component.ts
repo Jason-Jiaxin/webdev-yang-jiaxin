@@ -18,6 +18,7 @@ export class WidgetListComponent implements OnInit, AfterViewInit {
   header = 'HEADING';
   image = 'IMAGE';
   youtube = 'YOUTUBE';
+  indexChange = {start: 0, end: 0};
 
   constructor(private widgetService: WidgetService, private acRoute: ActivatedRoute) { }
 
@@ -34,6 +35,7 @@ export class WidgetListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    const self = this;
     $('#widgetContainer')
       .sortable({
         axis: 'y',
@@ -41,11 +43,18 @@ export class WidgetListComponent implements OnInit, AfterViewInit {
         placeholder: 'ui-state-highlight',
         start: function (event, ui) {
           console.log('Old position: ' + ui.item.index());
-          // refe.initialIndex = ui.item.index();
+          // ui.item.data('start', ui.item.index());
+          self.indexChange.start = ui.item.index();
         },
         stop: function (event, ui) {
           console.log('New position: ' + ui.item.index());
-          console.log(ui.item);
+          self.indexChange.end = ui.item.index();
+          console.log(self.indexChange);
+          // console.log(ui.item);
+          self.widgetService.updateWidgetIndex(self.indexChange, self.pageId)
+            .subscribe((res) => {
+              console.log(res);
+            });
           //   refe.newIndexes.emit({
           //     startIndex: refe.initialIndex,
           //     endIndex: ui.item.index()});

@@ -19,15 +19,18 @@ module.exports = function (app) {
   app.get('/api/page/:pageId/widget', findAllWidgetsForPage);
   app.get('/api/widget/:widgetId', findWidgetById);
   app.put('/api/widget/:widgetId', updateWidget);
-  app.put('/api/:pageId/widget', updateWidgetOrder)
+  app.put('/api/page/:pageId/widget', updateWidgetOrder);
   app.delete('/api/widget/:widgetId', deleteWidget);
   app.post ('/api/upload', upload.single('myFile'), uploadImage);
 
   function updateWidgetOrder(req, res) {
     let pid = req.params['pageId'];
-    let initialIndex = req.query['initial'];
-    let finalIndex = req.query['final'];
-    console.log('page id: ' + pid + 'initial: ' + initialIndex + 'final: ' + finalIndex);
+    // let initialIndex = req.query['initial'];
+    // let finalIndex = req.query['final'];
+    let indexChange = req.body;
+    console.log('page id: ' + pid);
+    console.log(indexChange);
+    res.json({});
   }
 
   function uploadImage(req, res) {

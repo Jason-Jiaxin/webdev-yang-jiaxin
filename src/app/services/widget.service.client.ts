@@ -72,4 +72,18 @@ export class WidgetService {
         }
       );
   }
+
+  updateWidgetIndex(indexChange, pageId) {
+    console.log('update widget index client');
+    console.log(indexChange);
+    console.log(pageId);
+    // this.baseUrl + '/api/page/' + pageId + '/widget?initial=' + indexChange.start + '&final=' + indexChange.end, indexChange)
+    return this.http.put(this.baseUrl + '/api/page/' + pageId + '/widget', indexChange)
+      .map(
+        (res: Response) => {
+          console.log('response from server');
+          return res.json();
+        }
+      );
+  }
 }
