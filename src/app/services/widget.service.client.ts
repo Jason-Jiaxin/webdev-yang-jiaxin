@@ -20,6 +20,14 @@ export class WidgetService {
     'deleteWidget' : this.deleteWidget
   };
 
+  uploadFile(formData) {
+    return this.http.post(this.baseUrl + '/api/upload', formData).map(
+        (res: Response) => {
+          return res.json();
+        }
+      );
+  }
+
   createWidget(pageId, widget) {
     return this.http.post(this.baseUrl + '/api/page/' + pageId + '/widget', widget)
       .map(

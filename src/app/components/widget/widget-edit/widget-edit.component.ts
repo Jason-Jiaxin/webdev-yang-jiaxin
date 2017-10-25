@@ -1,8 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { WidgetService } from '../../../services/widget.service.client';
-import {WidgetHeaderComponent} from './widget-header/widget-header.component';
-import {WidgetImageComponent} from './widget-image/widget-image.component';
 
 @Component({
   selector: 'app-widget-edit',
@@ -31,6 +29,8 @@ export class WidgetEditComponent implements OnInit {
       this.widgetService.findWidgetById(this.widgetId)
         .subscribe((widget) => {
           this.widget = widget;
+          console.log('widget edit page');
+          console.log(this.widget);
         });
     });
   }
@@ -44,7 +44,6 @@ export class WidgetEditComponent implements OnInit {
   }
 
   updateWidget() {
-    // this.widget = this.headerComponent.widget;
     this.widgetService.updateWidget(this.widgetId, this.widget)
       .subscribe((widget) => {
         this.router.navigate(['user', this.userId, 'website',

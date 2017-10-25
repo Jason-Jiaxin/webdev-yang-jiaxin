@@ -12,7 +12,9 @@
   </p>
 </nav>
 
-<div class="container-fluid jy-below-nav">
+<div id="widgetContainer" class="container-fluid jy-below-nav">
+
+  <!--<img class="jy-widget-content" src="assets/uploads/2ca04ea2876fa5f99ab92fee84f06eaa" alt="no image">-->
 
   <div *ngFor="let widget of widgets">
 
@@ -24,7 +26,7 @@
             <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}">
               <span class="glyphicon glyphicon-cog"></span>
             </a>
-            <span class="glyphicon glyphicon-menu-hamburger"></span>
+            <span class="handle glyphicon glyphicon-menu-hamburger"></span>
           </div>
           <div [ngSwitch]="widget.size">
             <div *ngSwitchCase='1'><h1>{{widget.text}}</h1></div>
@@ -43,7 +45,7 @@
             <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}">
               <span class="glyphicon glyphicon-cog"></span>
             </a>
-            <span class="glyphicon glyphicon-menu-hamburger"></span>
+            <span class="handle glyphicon glyphicon-menu-hamburger"></span>
           </div>
           <iframe width="{{widget.width}}" height="315"
                   [src]="widget.url | safe" frameborder="0" allowfullscreen></iframe>
@@ -56,12 +58,11 @@
             <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}">
               <span class="glyphicon glyphicon-cog"></span>
             </a>
-            <span class="glyphicon glyphicon-menu-hamburger"></span>
+            <span class="handle glyphicon glyphicon-menu-hamburger"></span>
           </div>
-          <img class="jy-widget-content" [src]="widget.url" [style.width]="widget.width">
+          <img class="jy-widget-content" [src]="widget.url | safe" [style.width]="widget.width">
         </div>
       </div>
-
     </div>
 
   </div>

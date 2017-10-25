@@ -1,5 +1,5 @@
 
-<form>
+<form #f="ngForm">
   <div class="form-group">
     <label for="imageName">Name</label>
     <input [(ngModel)]="widget.name" type="text" class="form-control" id="imageName"
@@ -22,8 +22,9 @@
   </div>
   <div class="form-group">
     <label for="imageUpload">Upload</label>
-    <input type="file" class="form-control" id="imageUpload">
+    <input (change)=fileEvent($event) name="myFile" type="file" class="form-control" id="imageUpload">
   </div>
+  <button (click)="uploadImage()" class="btn btn-primary btn-block jy-margin-bottom-5">Upload Image</button>
 </form>
-<a class="btn btn-primary btn-block jy-margin-bottom-5" disabled="true" >Upload Image</a>
+
 
