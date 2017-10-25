@@ -25,12 +25,56 @@ module.exports = function (app) {
 
   function updateWidgetOrder(req, res) {
     let pid = req.params['pageId'];
-    // let initialIndex = req.query['initial'];
-    // let finalIndex = req.query['final'];
     let indexChange = req.body;
     console.log('page id: ' + pid);
     console.log(indexChange);
-    res.json({});
+    let startIdx = indexChange.start;
+    let endIdx = indexChange.end;
+    if (startIdx < endIdx) {
+      let prevIdx = 0;
+      let j = -1;
+      for (let i = 0; i < widgets.length; i++) {
+        if (widgets[i].pageId === pid){
+          j++;
+          if (j === startIdx) prevIdx = i;
+          else if (j > startIdx && j < endIdx) {
+            swap(prevIdx, i);
+            prevIdx = i;
+          } else if (j === endIdx){
+            swap(prevIdx, i);
+            break;
+          }
+        }
+      }
+    } else {
+        let j = -1;
+        let firstIdx = 0;
+        let prevWidget;
+        for (let i = 0; i < widgets.length; i++) {
+          if (widgets[i].pageId === pid) {
+            j++;
+            if (j === endIdx) {
+              firstIdx = i;
+              prevWidget = widgets[i];
+            }else if (j > endIdx && j < startIdx) {
+              let temp = widgets[i];
+              widgets[i] = prevWidget;
+              prevWidget = temp;
+            } else if (j === startIdx) {
+              widgets[firstIdx] = widgets[i];
+              widgets[i] = prevWidget;
+              break;
+            }
+          }
+        }
+      }
+    res.json(widgets);
+  }
+
+  function swap(i, j) {
+    let temp = widgets[i];
+    widgets[i] = widgets[j];
+    widgets[j] = temp;
   }
 
   function uploadImage(req, res) {

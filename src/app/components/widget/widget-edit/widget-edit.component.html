@@ -13,7 +13,7 @@
 </nav>
 
 <div class="container-fluid jy-below-nav">
-  <div [ngSwitch]="widget.widgetType">
+  <div [ngSwitch]="widget?.widgetType">
 
     <div *ngSwitchCase='header'>
       <app-widget-header [widget]="widget"></app-widget-header>

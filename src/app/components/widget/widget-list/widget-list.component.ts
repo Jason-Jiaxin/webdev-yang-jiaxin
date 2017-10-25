@@ -51,10 +51,12 @@ export class WidgetListComponent implements OnInit, AfterViewInit {
           self.indexChange.end = ui.item.index();
           console.log(self.indexChange);
           // console.log(ui.item);
-          self.widgetService.updateWidgetIndex(self.indexChange, self.pageId)
-            .subscribe((res) => {
-              console.log(res);
-            });
+          if (self.indexChange.start !== self.indexChange.end) {
+            self.widgetService.updateWidgetIndex(self.indexChange, self.pageId)
+              .subscribe((res) => {
+                console.log(res);
+              });
+          }
           //   refe.newIndexes.emit({
           //     startIndex: refe.initialIndex,
           //     endIndex: ui.item.index()});
