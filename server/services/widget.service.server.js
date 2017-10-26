@@ -13,7 +13,7 @@ module.exports = function (app) {
   ];
 
   let multer = require('multer'); // npm install multer --save
-  let upload = multer({ dest: __dirname + '/../../src/assets/uploads' });
+  let upload = multer({ dest: __dirname + '/../../dist/assets/uploads' });
 
   app.post('/api/page/:pageId/widget', createWidget);
   app.get('/api/page/:pageId/widget', findAllWidgetsForPage);
