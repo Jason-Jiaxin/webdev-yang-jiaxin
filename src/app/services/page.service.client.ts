@@ -8,14 +8,9 @@ import { Router } from '@angular/router';
 @Injectable()
 export class PageService {
 
-  constructor() { }
+  baseUrl = environment.baseUrl;
 
-  pages = [
-    { '_id': '321', 'name': 'Post 1', 'websiteId': '456', 'description': 'Lorem' },
-    { '_id': '432', 'name': 'Post 2', 'websiteId': '456', 'description': 'Lorem' },
-    { '_id': '543', 'name': 'Post 3', 'websiteId': '456', 'description': 'Lorem' }
-
-  ];
+  constructor(private http: Http) { }
 
   api = {
     'createPage'   : this.createPage,
@@ -26,47 +21,47 @@ export class PageService {
   };
 
   createPage(websiteId, page) {
-    page._id = this.getRandomInt(1000, 10000).toString();
-    page.websiteId = websiteId;
-    this.pages.push(page);
-    return(page);
+    return this.http.post(this.baseUrl + '/api/website/' + websiteId + '/page', page)
+      .map(
+        (res: Response) => {
+          return res.json();
+        }
+      );
   }
 
   findPageByWebsiteId(websiteId) {
-    const res = [];
-    for (let x = 0; x < this.pages.length; x++) {
-      if (this.pages[x].websiteId === websiteId) {
-        res.push(this.pages[x]);
-      }
-    }
-    return res;
+    return this.http.get(this.baseUrl + '/api/website/' + websiteId + '/page')
+      .map(
+        (res: Response) => {
+          return res.json();
+        }
+      );
   }
 
   findPageById(pageId) {
-    for (let x = 0; x < this.pages.length; x++) {
-      if (this.pages[x]._id === pageId) {
-        return this.pages[x];
-      }
-    }
+    return this.http.get(this.baseUrl + '/api/page/' + pageId)
+      .map(
+        (res: Response) => {
+          return res.json();
+        }
+      );
   }
 
   updatePage(pageId, page) {
-    for (let x = 0; x < this.pages.length; x++) {
-      if (this.pages[x]._id === pageId) {
-        this.pages[x] = page;
-      }
-    }
+    return this.http.put(this.baseUrl + '/api/page/' + pageId, page)
+      .map(
+        (res: Response) => {
+          return res.json();
+        }
+      );
   }
 
   deletePage(pageId) {
-    for (let x = 0; x < this.pages.length; x++) {
-      if (this.pages[x]._id === pageId) {
-        this.pages.splice(x, 1);
-      }
-    }
-  }
-
-  getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
+    return this.http.delete(this.baseUrl + '/api/page/' + pageId)
+      .map(
+        (res: Response) => {
+          return res.json();
+        }
+      );
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../../services/user.service.client';
 import {Router} from '@angular/router';
+import {User} from "../../../models/user.model";
 
 @Component({
   selector: 'app-register',
@@ -23,13 +24,15 @@ export class RegisterComponent implements OnInit {
   register() {
     if (this.password1 === this.password2) {
       this.errorFlag = false;
-      let user = {
+      const user = {
         _id: '',
         username: this.username,
         password: this.password1
       };
-      user = this.userService.createUser(user);
-      this.router.navigate(['user', user._id]);
+      this.userService.createUser(user)
+        .subscribe((newUser: User) => {
+          this.router.navigate(['user', newUser._id]);
+        });
     } else {
       this.errorFlag = true;
     }

@@ -2,13 +2,13 @@
 
   <a class="navbar-brand"><b>Profile</b></a>
   <p class="navbar-text pull-right jy-nav-right-margin">
-    <a routerLink="/user/{{user._id}}" class="navbar-link">
+    <a (click)="updateUser()" class="navbar-link">
       <span class="glyphicon glyphicon-ok"></span>
     </a>
   </p>
 </nav>
 
-<div class="container jy-below-nav">
+<div class="container jy-below-nav" *ngIf="user">
   <form>
     <div class="form-group">
       <label for="username">Username</label>
@@ -46,7 +46,7 @@
 <!-- Footer -->
 <nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
   <p class="navbar-text pull-right jy-nav-right-margin">
-    <a routerLink="/user/{{user._id}}" class="navbar-link">
+    <a *ngIf="user" routerLink="/user/{{user._id}}" class="navbar-link">
       <span class="glyphicon glyphicon-user"></span>
     </a>
   </p>

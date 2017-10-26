@@ -24,6 +24,10 @@ input {
   margin: 0px;
 }
 
+.jy-margin-bottom-5 {
+  margin-bottom: 5px;
+}
+
 .jy-right-border-line {
   border-right: thin gray solid;
   height: 100%;
@@ -52,4 +56,9 @@ input {
 
 a:not([href]) {
   cursor: pointer;
+}
+
+.ui-state-highlight {
+  height: 1.5em;
+  line-height: 1.2em;
 }

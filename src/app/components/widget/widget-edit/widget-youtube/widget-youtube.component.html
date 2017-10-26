@@ -1,27 +1,23 @@
 
-<div class="container-fluid jy-below-nav">
-  <form>
-    <div class="form-group">
-      <label for="youtubeName">Name</label>
-      <input [(ngModel)]="widget.name" type="text" class="form-control" id="youtubeName"
-             name="widgetName" placeholder="Name">
-    </div>
-    <div class="form-group">
-      <label for="youtubeText">Text</label>
-      <input [(ngModel)]="widget.text" type="text" class="form-control" id="youtubeText"
-             name="widgetText" placeholder="Text">
-    </div>
-    <div class="form-group">
-      <label for="youtubeURL">URL</label>
-      <input [(ngModel)]="widget.url" type="text" class="form-control" id="youtubeURL"
-             name="widgetUrl" placeholder="https://youtu.be/123456">
-    </div>
-    <div class="form-group">
-      <label for="youtubeWidth">Width</label>
-      <input [(ngModel)]="widget.width" type="text" class="form-control" id="youtubeWidth"
-             name="widgetWidth" placeholder="">
-    </div>
-  </form>
-  <a (click)="deleteWidget()" class="btn btn-danger btn-block"
-     routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget" >Delete</a>
-</div>
+<form>
+  <div class="form-group">
+    <label for="youtubeName">Name</label>
+    <input [(ngModel)]="widget.name" type="text" class="form-control" id="youtubeName"
+           name="widgetName" placeholder="Name">
+  </div>
+  <div class="form-group">
+    <label for="youtubeText">Text</label>
+    <input [(ngModel)]="widget.text" type="text" class="form-control" id="youtubeText"
+           name="widgetText" placeholder="Text">
+  </div>
+  <div class="form-group">
+    <label for="youtubeURL">URL</label>
+    <input [(ngModel)]="widget.url" type="text" class="form-control" id="youtubeURL"
+           name="widgetUrl" placeholder="https://youtu.be/123456">
+  </div>
+  <div class="form-group">
+    <label for="youtubeWidth">Width</label>
+    <input [(ngModel)]="widget.width" type="text" class="form-control" id="youtubeWidth"
+           name="widgetWidth" placeholder="">
+  </div>
+</form>

@@ -21,7 +21,7 @@
       </p>
       <a class="navbar-brand jv-no-left-padding"><b>Edit Website</b></a>
       <p class="navbar-text pull-right jy-nav-right-margin">
-        <a routerLink="/user/{{userId}}/website" class="navbar-link">
+        <a (click)="updateWebsite()" class="navbar-link">
           <span class="glyphicon glyphicon-ok"></span>
         </a>
       </p>
@@ -50,7 +50,7 @@
         </li>
       </ul>
     </div>
-    <div class="col-xs-12 col-sm-8">
+    <div class="col-xs-12 col-sm-8" *ngIf="website">
       <form>
         <div class="form-group">
           <label for="websiteName">Website Name</label>
@@ -61,8 +61,7 @@
           <textarea [(ngModel)] = "website.description" rows="5" class="form-control" id="websiteDesp" name="websiteDesp"></textarea>
         </div>
       </form>
-      <button (click)="deleteWebsite()" class="btn btn-danger btn-block "
-         routerLink="/user/{{userId}}/website"  >Delete</button>
+      <button (click)="deleteWebsite()" class="btn btn-danger btn-block ">Delete</button>
     </div>
   </div>
 

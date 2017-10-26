@@ -25,13 +25,15 @@ export class WidgetChooserComponent implements OnInit {
   }
 
   createWidget(type: string) {
-    let widget = {
+    const widget = {
       widgetType: type,
       _id: '0',
       size: 2
-    }
-    widget = this.widgetService.createWidget(this.pageId, widget);
-    this.router.navigate(['user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget', widget._id]);
+    };
+    this.widgetService.createWidget(this.pageId, widget)
+      .subscribe((newWidget) => {
+        this.router.navigate(['user', this.userId, 'website', this.websiteId,
+          'page', this.pageId, 'widget', newWidget._id]);
+      });
   }
-
 }
