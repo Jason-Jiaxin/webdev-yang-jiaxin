@@ -27,7 +27,9 @@ import {UserService} from './services/user.service.client';
 import {WebsiteService} from './services/website.service.client';
 import {PageService} from './services/page.service.client';
 import {WidgetService} from './services/widget.service.client';
-import {SafePipe} from "./pipes/safe.pipe";
+import {SafePipe} from './pipes/safe.pipe';
+import { FlickrImageSearchComponent } from './components/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
+import {FlickrService} from './services/flickr.service.client';
 
 @NgModule({
   // Declare components here
@@ -50,7 +52,8 @@ import {SafePipe} from "./pipes/safe.pipe";
     WidgetHeaderComponent,
     WidgetImageComponent,
     WidgetYoutubeComponent,
-    SafePipe
+    SafePipe,
+    FlickrImageSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,7 @@ import {SafePipe} from "./pipes/safe.pipe";
     Routing
   ],
   // Client Side services here
-  providers: [UserService, WebsiteService, PageService, WidgetService, TestService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, TestService, FlickrService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
