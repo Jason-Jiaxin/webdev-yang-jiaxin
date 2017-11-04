@@ -8,7 +8,7 @@ var UserSchema = new Schema({
   lastName: String,
   email: String,
   phone: String,
-  websites:  [{ type: Schema.Types.ObjectId, ref: 'website' }],
+  websites:  [{ type: Schema.Types.ObjectId, ref: 'WebsiteModel' }],
   dateCreated: { type: Date, default: Date.now }
 }, { collection: 'user' });
 

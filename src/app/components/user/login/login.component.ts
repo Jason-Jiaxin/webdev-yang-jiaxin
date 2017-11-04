@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.username = this.loginForm.value.username;
     this.password = this.loginForm.value.password;
     this.userService.findUserByCredentials(this.username, this.password)
-      .subscribe((user: User) => {
+      .subscribe((user) => {
         if (user) {
           console.log(user);
           this.router.navigate(['user', user._id]);

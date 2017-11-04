@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 let UserSchema = require('./user.schema.server');
-let UserModel = mongoose.model('', UserSchema);
+let UserModel = mongoose.model('UserModel', UserSchema);
 UserModel.createUser = createUser;
 UserModel.findUserById = findUserById;
 UserModel.findUserByUsername = findUserByUsername;

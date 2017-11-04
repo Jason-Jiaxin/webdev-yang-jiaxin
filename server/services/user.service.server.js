@@ -32,16 +32,21 @@ module.exports = function (app) {
       if (password) {
         userModel.findUserByCredentials(username, password).then(function (result) {
           user = result;
+          if (user) {
+            res.json(user);
+          } else {
+            res.json(null);
+          }
         });
       } else {
         userModel.findUserByUsername(username).then(function (result) {
           user = result;
+          if (user) {
+            res.json(user);
+          } else {
+            res.json(null);
+          }
         });
-      }
-      if (user) {
-        res.json(user);
-      } else {
-        res.json(null);
       }
     } else {
       userModel.findAllUsers().then(function (result) {
@@ -62,7 +67,9 @@ module.exports = function (app) {
     let uid = req.params['userId'];
     let user = req.body;
     userModel.updateUser(uid, user).then(function (result) {
-      res.json(result);
+      userModel.findUserById(uid).then(function (result) {
+        res.json(result);
+      })
     });
   }
 

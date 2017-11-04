@@ -1,5 +1,6 @@
 module.exports = function (app) {
 
+  let widgetModel = require('../model/widget/widget.model.server');
   let widgets = [
     { '_id': '123', 'widgetType': 'HEADING', 'pageId': '321', 'size': 2, 'text': 'GIZMODO'},
     { '_id': '234', 'widgetType': 'HEADING', 'pageId': '321', 'size': 4, 'text': 'Lorem ipsum'},
@@ -97,18 +98,17 @@ module.exports = function (app) {
   function createWidget(req, res) {
     let pid = req.params['pageId'];
     let widget = req.body;
-    widget._id = getRandomInt(1000, 10000).toString();
-    widget.pageId = pid;
-    widgets.push(widget);
-    res.json(widget);
+    widget._page = pid;
+    widgetModel.createWidget(pid, widget).then(function (result) {
+      res.json(result);
+    });
   }
 
   function findAllWidgetsForPage(req, res) {
     let pid = req.params['pageId'];
-    let result = widgets.filter(function (widget) {
-      return widget.pageId === pid;
+    widgetModel.findAllWidgetsForPage(pid).then(function (result) {
+      res.json(result);
     });
-    res.json(result);
   }
 
   function findWidgetById(req, res) {
