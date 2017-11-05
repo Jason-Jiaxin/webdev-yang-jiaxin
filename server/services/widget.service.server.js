@@ -27,49 +27,53 @@ module.exports = function (app) {
   function updateWidgetOrder(req, res) {
     let pid = req.params['pageId'];
     let indexChange = req.body;
-    console.log('page id: ' + pid);
-    console.log(indexChange);
     let startIdx = indexChange.start;
     let endIdx = indexChange.end;
-    if (startIdx < endIdx) {
-      let prevIdx = 0;
-      let j = -1;
-      for (let i = 0; i < widgets.length; i++) {
-        if (widgets[i].pageId === pid){
-          j++;
-          if (j === startIdx) prevIdx = i;
-          else if (j > startIdx && j < endIdx) {
-            swap(prevIdx, i);
-            prevIdx = i;
-          } else if (j === endIdx){
-            swap(prevIdx, i);
-            break;
-          }
-        }
-      }
-    } else {
-        let j = -1;
-        let firstIdx = 0;
-        let prevWidget;
-        for (let i = 0; i < widgets.length; i++) {
-          if (widgets[i].pageId === pid) {
-            j++;
-            if (j === endIdx) {
-              firstIdx = i;
-              prevWidget = widgets[i];
-            }else if (j > endIdx && j < startIdx) {
-              let temp = widgets[i];
-              widgets[i] = prevWidget;
-              prevWidget = temp;
-            } else if (j === startIdx) {
-              widgets[firstIdx] = widgets[i];
-              widgets[i] = prevWidget;
-              break;
-            }
-          }
-        }
-      }
-    res.json(widgets);
+    widgetModel.reorderWidget(pid, startIdx, endIdx).then(function (result) {
+      res.json(result);
+    });
+    // console.log('page id: ' + pid);
+    // console.log(indexChange);
+
+    // if (startIdx < endIdx) {
+    //   let prevIdx = 0;
+    //   let j = -1;
+    //   for (let i = 0; i < widgets.length; i++) {
+    //     if (widgets[i].pageId === pid){
+    //       j++;
+    //       if (j === startIdx) prevIdx = i;
+    //       else if (j > startIdx && j < endIdx) {
+    //         swap(prevIdx, i);
+    //         prevIdx = i;
+    //       } else if (j === endIdx){
+    //         swap(prevIdx, i);
+    //         break;
+    //       }
+    //     }
+    //   }
+    // } else {
+    //     let j = -1;
+    //     let firstIdx = 0;
+    //     let prevWidget;
+    //     for (let i = 0; i < widgets.length; i++) {
+    //       if (widgets[i].pageId === pid) {
+    //         j++;
+    //         if (j === endIdx) {
+    //           firstIdx = i;
+    //           prevWidget = widgets[i];
+    //         }else if (j > endIdx && j < startIdx) {
+    //           let temp = widgets[i];
+    //           widgets[i] = prevWidget;
+    //           prevWidget = temp;
+    //         } else if (j === startIdx) {
+    //           widgets[firstIdx] = widgets[i];
+    //           widgets[i] = prevWidget;
+    //           break;
+    //         }
+    //       }
+    //     }
+    //   }
+    // res.json(widgets);
   }
 
   function swap(i, j) {
@@ -86,12 +90,13 @@ module.exports = function (app) {
     console.log("widget server, upload image");
     console.log('widget id: ' + widgetId);
     console.log(myFile);
-    let widget  = widgets.find(function (w) {
-      return w._id === widgetId;
+    widgetModel.findWidgetById(widgetId).then(function (widget) {
+      widget.url = 'assets/uploads/' + myFile.filename;
+      widgetModel.updateWidget(widgetId, widget).then(function (result) {
+        console.log(widget);
+        res.json(widget);
+      })
     });
-    widget.url = 'assets/uploads/' + myFile.filename;
-    console.log(widgets);
-    res.json(widget);
   }
 
 
@@ -100,8 +105,8 @@ module.exports = function (app) {
     let widget = req.body;
     widget._page = pid;
     widgetModel.createWidget(pid, widget).then(function (result) {
-      console.log('widget server, create widget.');
-      console.log(result);
+      // console.log('widget server, create widget.');
+      // console.log(result);
       res.json(result);
     });
   }
@@ -109,10 +114,10 @@ module.exports = function (app) {
   function findAllWidgetsForPage(req, res) {
     let pid = req.params['pageId'];
     widgetModel.findAllWidgetsForPage(pid).then(function (result) {
-      console.log('widget server, find all widgets.');
-      console.log(result);
+      // console.log('widget server, find all widgets.');
+      // console.log(result);
       let widgets = result.widgets;
-      console.log(widgets);
+      // console.log(widgets);
       res.json(widgets);
     });
   }

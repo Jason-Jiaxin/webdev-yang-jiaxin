@@ -8,6 +8,7 @@ WebsiteModel.updateWebsite = updateWebsite;
 WebsiteModel.deleteWebsite = deleteWebsite;
 module.exports = WebsiteModel;
 
+let pageModel = require('../page/page.model.server');
 function createWebsiteForUser(website) {
   return WebsiteModel.create(website);
 }
@@ -22,9 +23,11 @@ function findWebsiteById(websiteId) {
 
 
 function updateWebsite(websiteId, website) {
-  return WebsiteModel.findOneAndUpdate({_id: websiteId}, website);
+  return WebsiteModel.findOneAndUpdate({_id: websiteId}, website, {new:true});
 }
 
 function deleteWebsite(websiteId) {
-  return WebsiteModel.findOneAndRemove({_id: websiteId});
+  return pageModel.remove({_website: websiteId}).then(function (result) {
+    return WebsiteModel.findOneAndRemove({_id: websiteId});
+  });
 }

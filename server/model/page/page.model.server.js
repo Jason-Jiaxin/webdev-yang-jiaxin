@@ -9,6 +9,7 @@ PageModel.deletePage = deletePage;
 PageModel.addWidget = addWidget;
 PageModel.deleteWidget = deleteWidget;
 module.exports = PageModel;
+let widgetModel = require('../widget/widget.model.server');
 
 function createPage(page) {
   return PageModel.create(page);
@@ -23,11 +24,13 @@ function findPageById(pageId) {
 }
 
 function updatePage(pageId, page) {
-  return PageModel.findOneAndUpdate({_id: pageId}, page);
+  return PageModel.findOneAndUpdate({_id: pageId}, page, {new:true});
 }
 
 function deletePage(pageId) {
-  return PageModel.findOneAndRemove({_id: pageId});
+  return widgetModel.remove({_page: pageId}).then(function (result) {
+    return PageModel.findOneAndRemove({_id: pageId});
+  });
 }
 
 function addWidget(pageId, widgetId) {

@@ -29,7 +29,7 @@ function findWidgetById(widgetId) {
 }
 
 function updateWidget(widgetId, widget) {
-  return WidgetModel.findOneAndUpdate({_id: widgetId}, widget);
+  return WidgetModel.findOneAndUpdate({_id: widgetId}, widget, {new:true});
 }
 
 function deleteWidget(widgetId) {
@@ -42,5 +42,22 @@ function deleteWidget(widgetId) {
 
 
 function reorderWidget(pageId, start, end) {
+  return pageModel.findPageById(pageId).then(function (page) {
+    if (start < end) {
+      for (let i = start; i < end; i++) {
+        swap(page, i, i+1);
+      }
+    } else {
+      for (let i = start; i > end; i--) {
+        swap(page, i, i-1);
+      }
+    }
+    return pageModel.updatePage(pageId, page);
+  });
+}
 
+function swap(page, i, j) {
+  let temp = page.widgets[i];
+  page.widgets[i] = page.widgets[j];
+  page.widgets[j] = temp;
 }
