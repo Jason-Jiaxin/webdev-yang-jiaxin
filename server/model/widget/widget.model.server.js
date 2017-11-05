@@ -14,8 +14,8 @@ function createWidget(pageId, widget) {
   let newWidget;
   return WidgetModel.create(widget).then(function (w) {
     newWidget = w;
-    pageModel.addWidget(pageId, newWidget._id).then(function (page) {
-      return newWidget;
+    return pageModel.addWidget(pageId, newWidget._id).then(function (page) {
+      return findWidgetById(newWidget._id);
     })
   });
 }
@@ -33,7 +33,11 @@ function updateWidget(widgetId, widget) {
 }
 
 function deleteWidget(widgetId) {
-  return WidgetModel.findOneAndRemove({_id: widgetId});
+  return findWidgetById(widgetId).then(function (widget) {
+    return pageModel.deleteWidget(widget).then(function (page) {
+      return WidgetModel.findOneAndRemove({_id: widgetId});
+    })
+  })
 }
 
 

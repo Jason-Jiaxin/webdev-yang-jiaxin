@@ -7,6 +7,7 @@ PageModel.findPageById = findPageById;
 PageModel.updatePage = updatePage;
 PageModel.deletePage = deletePage;
 PageModel.addWidget = addWidget;
+PageModel.deleteWidget = deleteWidget;
 module.exports = PageModel;
 
 function createPage(page) {
@@ -30,8 +31,19 @@ function deletePage(pageId) {
 }
 
 function addWidget(pageId, widgetId) {
-  findPageById(pageId).then(function (page) {
+  return findPageById(pageId).then(function (page) {
     page.widgets.push(widgetId);
+    return page.save();
+  })
+}
+
+function deleteWidget(widget) {
+  return findPageById(widget._page).then(function (page) {
+    let index = page.widgets.findIndex(function (wid) {
+      return wid.equals(widget._id);
+    });
+    console.log('index:' + index);
+    page.widgets.splice(index, 1);
     return page.save();
   })
 }

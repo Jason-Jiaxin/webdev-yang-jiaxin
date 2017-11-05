@@ -100,6 +100,8 @@ module.exports = function (app) {
     let widget = req.body;
     widget._page = pid;
     widgetModel.createWidget(pid, widget).then(function (result) {
+      console.log('widget server, create widget.');
+      console.log(result);
       res.json(result);
     });
   }
@@ -107,40 +109,35 @@ module.exports = function (app) {
   function findAllWidgetsForPage(req, res) {
     let pid = req.params['pageId'];
     widgetModel.findAllWidgetsForPage(pid).then(function (result) {
-      res.json(result);
+      console.log('widget server, find all widgets.');
+      console.log(result);
+      let widgets = result.widgets;
+      console.log(widgets);
+      res.json(widgets);
     });
   }
 
   function findWidgetById(req, res) {
     let wid = req.params['widgetId'];
-    let widget = widgets.find(function (w) {
-      return w._id === wid;
+    widgetModel.findWidgetById(wid).then(function (result) {
+      res.json(result);
     });
-    res.json(widget);
   }
 
   function updateWidget(req, res) {
     let wid = req.params['widgetId'];
     let widget = req.body;
-    let index = widgets.findIndex(function (w) {
-      return w._id === wid;
+    widgetModel.updateWidget(wid, widget).then(function (result) {
+      res.json(result);
     });
-    widgets[index] = widget;
-    res.json(widget);
   }
 
   function deleteWidget(req, res) {
     let wid = req.params['widgetId'];
     let widget = req.body;
-    let index = widgets.findIndex(function (w) {
-      return w._id === wid;
-    });
-    widgets.splice(index, 1);
-    res.json({});
-  }
-
-  function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
+    widgetModel.deleteWidget(wid).then(function (result) {
+      res.json({});
+    })
   }
 
 };

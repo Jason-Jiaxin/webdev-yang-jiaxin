@@ -18,7 +18,7 @@
 
   <div *ngFor="let widget of widgets">
 
-    <div [ngSwitch]="widget.widgetType">
+    <div [ngSwitch]="widget.type">
 
       <div *ngSwitchCase='header'>
         <div class="jy-widget">
