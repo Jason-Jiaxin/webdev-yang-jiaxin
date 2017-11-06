@@ -15,9 +15,11 @@ export class WidgetListComponent implements OnInit, AfterViewInit {
   websiteId: string;
   pageId: string;
   widgets;
-  header = 'HEADING';
-  image = 'IMAGE';
-  youtube = 'YOUTUBE';
+  HEADING = 'HEADING';
+  IMAGE = 'IMAGE';
+  YOUTUBE = 'YOUTUBE';
+  HTML = 'HTML';
+  INPUT = 'INPUT';
   indexChange = {start: 0, end: 0};
 
   constructor(private widgetService: WidgetService, private acRoute: ActivatedRoute) { }

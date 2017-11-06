@@ -28,6 +28,10 @@ input {
   margin-bottom: 5px;
 }
 
+.jy-margin-top-5 {
+  margin-top: 5px;
+}
+
 .jy-right-border-line {
   border-right: thin gray solid;
   height: 100%;

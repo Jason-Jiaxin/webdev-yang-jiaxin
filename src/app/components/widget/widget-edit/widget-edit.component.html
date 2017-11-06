@@ -15,19 +15,27 @@
 <div class="container-fluid jy-below-nav">
   <div [ngSwitch]="widget?.type">
 
-    <div *ngSwitchCase='header'>
+    <div *ngSwitchCase='HEADING'>
       <app-widget-header [widget]="widget"></app-widget-header>
     </div>
 
-    <div *ngSwitchCase='image'>
+    <div *ngSwitchCase='IMAGE'>
       <app-widget-image [widget]="widget"></app-widget-image>
     </div>
 
-    <div *ngSwitchCase='youtube'>
+    <div *ngSwitchCase='YOUTUBE'>
       <app-widget-youtube [widget]="widget"></app-widget-youtube>
     </div>
+
+    <div *ngSwitchCase='HTML'>
+      <app-widget-html [widget]="widget"></app-widget-html>
+    </div>
+
+    <div *ngSwitchCase='INPUT'>
+      <app-widget-text [widget]="widget"></app-widget-text>
+    </div>
   </div>
-  <a (click)="deleteWidget()" class="btn btn-danger btn-block" >Delete</a>
+  <a (click)="deleteWidget()" class="btn btn-danger btn-block jy-margin-top-5" >Delete</a>
 </div>
 
 <nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">

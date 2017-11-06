@@ -20,7 +20,7 @@
 
     <div [ngSwitch]="widget.type">
 
-      <div *ngSwitchCase='header'>
+      <div *ngSwitchCase='HEADING'>
         <div class="jy-widget">
           <div class="jy-toolbar">
             <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}">
@@ -39,20 +39,19 @@
         </div>
       </div>
 
-      <div *ngSwitchCase='youtube'>
+      <div *ngSwitchCase='YOUTUBE' class="youtube-widget">
         <div class="jy-widget">
+          <iframe width="{{widget.width}}" [src]="widget.url | safeUrl" frameborder="0" allowfullscreen></iframe>
           <div class="jy-toolbar">
             <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}">
               <span class="glyphicon glyphicon-cog"></span>
             </a>
             <span class="handle glyphicon glyphicon-menu-hamburger"></span>
           </div>
-          <iframe width="{{widget.width}}" height="315"
-                  [src]="widget.url | safe" frameborder="0" allowfullscreen></iframe>
         </div>
       </div>
 
-      <div *ngSwitchCase='image'>
+      <div *ngSwitchCase='IMAGE'>
         <div class="jy-widget">
           <div class="jy-toolbar">
             <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}">
@@ -60,9 +59,22 @@
             </a>
             <span class="handle glyphicon glyphicon-menu-hamburger"></span>
           </div>
-          <img class="jy-widget-content" [src]="widget.url | safe" [style.width]="widget.width">
+          <img class="jy-widget-content" [src]="widget.url | safeUrl" [style.width]="widget.width">
         </div>
       </div>
+
+      <div *ngSwitchCase='HTML'>
+        <div class="jy-widget">
+          <div class="jy-toolbar">
+            <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}">
+              <span class="glyphicon glyphicon-cog"></span>
+            </a>
+            <span class="handle glyphicon glyphicon-menu-hamburger"></span>
+          </div>
+          <div [innerHTML] = "widget.text | safeHtml"></div>
+        </div>
+      </div>
+
     </div>
 
   </div>

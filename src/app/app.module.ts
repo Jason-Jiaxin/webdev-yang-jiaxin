@@ -27,9 +27,13 @@ import {UserService} from './services/user.service.client';
 import {WebsiteService} from './services/website.service.client';
 import {PageService} from './services/page.service.client';
 import {WidgetService} from './services/widget.service.client';
-import {SafePipe} from './pipes/safe.pipe';
+import {SafeUrlPipe} from './pipes/safe.url.pipe';
 import { FlickrImageSearchComponent } from './components/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
 import {FlickrService} from './services/flickr.service.client';
+import { QuillEditorModule } from 'ngx-quill-editor';
+import { WidgetHtmlComponent } from './components/widget/widget-edit/widget-html/widget-html.component';
+import { WidgetTextComponent } from './components/widget/widget-edit/widget-text/widget-text.component';
+import {SafeHtmlPipe} from './pipes/safe.html.pipe';
 
 @NgModule({
   // Declare components here
@@ -52,14 +56,18 @@ import {FlickrService} from './services/flickr.service.client';
     WidgetHeaderComponent,
     WidgetImageComponent,
     WidgetYoutubeComponent,
-    SafePipe,
-    FlickrImageSearchComponent
+    SafeUrlPipe,
+    SafeHtmlPipe,
+    FlickrImageSearchComponent,
+    WidgetHtmlComponent,
+    WidgetTextComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
-    Routing
+    Routing,
+    QuillEditorModule
   ],
   // Client Side services here
   providers: [UserService, WebsiteService, PageService, WidgetService, TestService, FlickrService],
