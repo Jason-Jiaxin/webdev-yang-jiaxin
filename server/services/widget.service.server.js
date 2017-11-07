@@ -1,5 +1,6 @@
 module.exports = function (app) {
 
+  let widgetModel = require('../model/widget/widget.model.server');
   let widgets = [
     { '_id': '123', 'widgetType': 'HEADING', 'pageId': '321', 'size': 2, 'text': 'GIZMODO'},
     { '_id': '234', 'widgetType': 'HEADING', 'pageId': '321', 'size': 4, 'text': 'Lorem ipsum'},
@@ -26,49 +27,53 @@ module.exports = function (app) {
   function updateWidgetOrder(req, res) {
     let pid = req.params['pageId'];
     let indexChange = req.body;
-    console.log('page id: ' + pid);
-    console.log(indexChange);
     let startIdx = indexChange.start;
     let endIdx = indexChange.end;
-    if (startIdx < endIdx) {
-      let prevIdx = 0;
-      let j = -1;
-      for (let i = 0; i < widgets.length; i++) {
-        if (widgets[i].pageId === pid){
-          j++;
-          if (j === startIdx) prevIdx = i;
-          else if (j > startIdx && j < endIdx) {
-            swap(prevIdx, i);
-            prevIdx = i;
-          } else if (j === endIdx){
-            swap(prevIdx, i);
-            break;
-          }
-        }
-      }
-    } else {
-        let j = -1;
-        let firstIdx = 0;
-        let prevWidget;
-        for (let i = 0; i < widgets.length; i++) {
-          if (widgets[i].pageId === pid) {
-            j++;
-            if (j === endIdx) {
-              firstIdx = i;
-              prevWidget = widgets[i];
-            }else if (j > endIdx && j < startIdx) {
-              let temp = widgets[i];
-              widgets[i] = prevWidget;
-              prevWidget = temp;
-            } else if (j === startIdx) {
-              widgets[firstIdx] = widgets[i];
-              widgets[i] = prevWidget;
-              break;
-            }
-          }
-        }
-      }
-    res.json(widgets);
+    widgetModel.reorderWidget(pid, startIdx, endIdx).then(function (result) {
+      res.json(result);
+    });
+    // console.log('page id: ' + pid);
+    // console.log(indexChange);
+
+    // if (startIdx < endIdx) {
+    //   let prevIdx = 0;
+    //   let j = -1;
+    //   for (let i = 0; i < widgets.length; i++) {
+    //     if (widgets[i].pageId === pid){
+    //       j++;
+    //       if (j === startIdx) prevIdx = i;
+    //       else if (j > startIdx && j < endIdx) {
+    //         swap(prevIdx, i);
+    //         prevIdx = i;
+    //       } else if (j === endIdx){
+    //         swap(prevIdx, i);
+    //         break;
+    //       }
+    //     }
+    //   }
+    // } else {
+    //     let j = -1;
+    //     let firstIdx = 0;
+    //     let prevWidget;
+    //     for (let i = 0; i < widgets.length; i++) {
+    //       if (widgets[i].pageId === pid) {
+    //         j++;
+    //         if (j === endIdx) {
+    //           firstIdx = i;
+    //           prevWidget = widgets[i];
+    //         }else if (j > endIdx && j < startIdx) {
+    //           let temp = widgets[i];
+    //           widgets[i] = prevWidget;
+    //           prevWidget = temp;
+    //         } else if (j === startIdx) {
+    //           widgets[firstIdx] = widgets[i];
+    //           widgets[i] = prevWidget;
+    //           break;
+    //         }
+    //       }
+    //     }
+    //   }
+    // res.json(widgets);
   }
 
   function swap(i, j) {
@@ -85,62 +90,59 @@ module.exports = function (app) {
     console.log("widget server, upload image");
     console.log('widget id: ' + widgetId);
     console.log(myFile);
-    let widget  = widgets.find(function (w) {
-      return w._id === widgetId;
+    widgetModel.findWidgetById(widgetId).then(function (widget) {
+      widget.url = 'assets/uploads/' + myFile.filename;
+      widgetModel.updateWidget(widgetId, widget).then(function (result) {
+        console.log(widget);
+        res.json(widget);
+      })
     });
-    widget.url = 'assets/uploads/' + myFile.filename;
-    console.log(widgets);
-    res.json(widget);
   }
 
 
   function createWidget(req, res) {
     let pid = req.params['pageId'];
     let widget = req.body;
-    widget._id = getRandomInt(1000, 10000).toString();
-    widget.pageId = pid;
-    widgets.push(widget);
-    res.json(widget);
+    widget._page = pid;
+    widgetModel.createWidget(pid, widget).then(function (result) {
+      // console.log('widget server, create widget.');
+      // console.log(result);
+      res.json(result);
+    });
   }
 
   function findAllWidgetsForPage(req, res) {
     let pid = req.params['pageId'];
-    let result = widgets.filter(function (widget) {
-      return widget.pageId === pid;
+    widgetModel.findAllWidgetsForPage(pid).then(function (result) {
+      // console.log('widget server, find all widgets.');
+      // console.log(result);
+      let widgets = result.widgets;
+      // console.log(widgets);
+      res.json(widgets);
     });
-    res.json(result);
   }
 
   function findWidgetById(req, res) {
     let wid = req.params['widgetId'];
-    let widget = widgets.find(function (w) {
-      return w._id === wid;
+    widgetModel.findWidgetById(wid).then(function (result) {
+      res.json(result);
     });
-    res.json(widget);
   }
 
   function updateWidget(req, res) {
     let wid = req.params['widgetId'];
     let widget = req.body;
-    let index = widgets.findIndex(function (w) {
-      return w._id === wid;
+    widgetModel.updateWidget(wid, widget).then(function (result) {
+      res.json(result);
     });
-    widgets[index] = widget;
-    res.json(widget);
   }
 
   function deleteWidget(req, res) {
     let wid = req.params['widgetId'];
     let widget = req.body;
-    let index = widgets.findIndex(function (w) {
-      return w._id === wid;
-    });
-    widgets.splice(index, 1);
-    res.json({});
-  }
-
-  function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
+    widgetModel.deleteWidget(wid).then(function (result) {
+      res.json({});
+    })
   }
 
 };

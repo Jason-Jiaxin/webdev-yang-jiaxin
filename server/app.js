@@ -4,6 +4,7 @@
    params is part of the request. any variables in the path will be available as a a map in params */
 
 module.exports = function(app) {
+  var db = require("./model/models.server");
   require("./test-mongodb/app")(app);
   require("./services/user.service.server.js")(app);
   require("./services/website.service.server.js")(app);

@@ -1,5 +1,6 @@
 module.exports = function (app) {
 
+  let pageModel = require('../model/page/page.model.server');
   let pages = [
     { '_id': '321', 'name': 'Post 1', 'websiteId': '456', 'description': 'Lorem' },
     { '_id': '432', 'name': 'Post 2', 'websiteId': '456', 'description': 'Lorem' },
@@ -15,50 +16,40 @@ module.exports = function (app) {
   function createPage(req, res) {
     let wid = req.params['websiteId'];
     let page = req.body;
-    page._id = getRandomInt(1000, 10000).toString();
-    page.websiteId = wid;
-    pages.push(page);
-    res.json(page);
+    page._website = wid;
+    pageModel.createPage(page).then(function (result) {
+      res.json(result);
+    });
   }
 
   function findAllPagesForWebsite(req, res) {
     let wid = req.params['websiteId'];
-    let result = pages.filter(function (page) {
-      return page.websiteId === wid;
+    pageModel.findAllPagesForWebsite(wid).then(function (result) {
+      res.json(result);
     });
-    res.json(result);
   }
 
   function findPageById(req, res) {
     let pid = req.params['pageId'];
-    let page = pages.find(function (page) {
-      return page._id === pid;
+    pageModel.findPageById(pid).then(function (result) {
+      res.json(result);
     });
-    res.json(page);
   }
 
   function updatePage(req, res) {
     let pid = req.params['pageId'];
     let page = req.body;
-    let index = pages.findIndex(function (page) {
-      return page._id === pid;
+    pageModel.updatePage(pid, page).then(function (result) {
+      res.json(result);
     });
-    pages[index] = page;
-    res.json(page);
   }
 
   function deletePage(req, res) {
     let pid = req.params['pageId'];
     let page = req.body;
-    let index = pages.findIndex(function (page) {
-      return page._id === pid;
-    });
-    pages.splice(index, 1);
-    res.json({});
-  }
-
-  function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
+    pageModel.deletePage(pid).then(function (result) {
+      res.json(result);
+    })
   }
 
 };

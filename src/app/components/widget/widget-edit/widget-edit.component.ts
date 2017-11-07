@@ -14,9 +14,11 @@ export class WidgetEditComponent implements OnInit {
   pageId: string;
   widgetId: string;
   widget;
-  header = 'HEADING';
-  image = 'IMAGE';
-  youtube = 'YOUTUBE';
+  HEADING = 'HEADING';
+  IMAGE = 'IMAGE';
+  YOUTUBE = 'YOUTUBE';
+  HTML = 'HTML';
+  INPUT = 'INPUT';
 
   constructor(private widgetService: WidgetService, private acRoute: ActivatedRoute, private router: Router) { }
 

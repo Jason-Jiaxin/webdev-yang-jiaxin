@@ -1,5 +1,6 @@
 module.exports = function (app) {
 
+  let websiteModel = require('../model/website/website.model.server');
   let websites = [
     { '_id': '123', 'name': 'Facebook',    'developerId': '456', 'description': 'Lorem' },
     { '_id': '234', 'name': 'Tweeter',     'developerId': '456', 'description': 'Lorem' },
@@ -19,49 +20,38 @@ module.exports = function (app) {
   function createWebsite(req, res) {
     let userId = req.params['userId'];
     let website = req.body;
-    website._id = getRandomInt(1000, 10000).toString();
-    website.developerId = userId;
-    websites.push(website);
-    res.json(website);
+    website._user = userId;
+    websiteModel.createWebsiteForUser(website).then(function (result) {
+      res.json(result);
+    });
   }
 
   function findAllWebsitesForUser(req, res) {
     let userId = req.params['userId'];
-    let result = websites.filter(function (website) {
-      return website.developerId === userId;
+    websiteModel.findAllWebsitesForUser(userId).then(function (result) {
+      res.json(result);
     });
-    res.json(result);
   }
 
   function findWebsiteById(req, res) {
     let wid = req.params['websiteId'];
-    let website = websites.find(function (website) {
-      return website._id === wid;
-    });
-    res.json(website);
+    websiteModel.findWebsiteById(wid).then(function (result) {
+      res.json(result);
+    })
   }
 
   function updateWebsite(req, res) {
     let wid = req.params['websiteId'];
     let website = req.body;
-    let index = websites.findIndex(function (website) {
-      return website._id === wid;
+    websiteModel.updateWebsite(wid, website).then(function (result) {
+      res.json(result);
     });
-    websites[index] = website;
-    res.json(website);
   }
 
   function deleteWebsite(req, res) {
     let wid = req.params['websiteId'];
-    let website = req.body;
-    let index = websites.findIndex(function (website) {
-      return website._id === wid;
+    websiteModel.deleteWebsite(wid).then(function (result) {
+      res.json({});
     });
-    websites.splice(index, 1);
-    res.json({});
-  }
-
-  function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
   }
 };
