@@ -49,7 +49,6 @@ module.exports = function (app) {
         return done(null, user);
       } else {
         let newUser = {
-          email: profile.email,
           facebook: {
           id:    profile.id,
           token: accessToken,
