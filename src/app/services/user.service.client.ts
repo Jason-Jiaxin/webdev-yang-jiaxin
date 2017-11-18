@@ -47,6 +47,7 @@ export class UserService {
     this.options.withCredentials = true;
     return this.http.post(url, credentials, this.options)
       .map((response: Response) => {
+        console.log(response);
           return response.json();
       }).catch(e => {
         if (e.status === 401) {
