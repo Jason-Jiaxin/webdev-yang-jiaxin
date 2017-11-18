@@ -35,6 +35,9 @@
       <app-widget-text [widget]="widget"></app-widget-text>
     </div>
   </div>
+  <div *ngIf="errorFlag" class="alert alert-danger">
+    {{errorMsg}}
+  </div>
   <a (click)="deleteWidget()" class="btn btn-danger btn-block jy-margin-top-5" >Delete</a>
 </div>
 

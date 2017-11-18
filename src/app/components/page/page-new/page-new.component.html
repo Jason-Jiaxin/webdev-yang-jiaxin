@@ -63,6 +63,9 @@
           <input [(ngModel)]="pageDesp" type="text" class="form-control" id="pageTitle"
                  name="pageDesp" placeholder="Page Title">
         </div>
+        <div *ngIf="errorFlag" class="alert alert-danger">
+          {{errorMsg}}
+        </div>
       </form>
     </div>
   </div>

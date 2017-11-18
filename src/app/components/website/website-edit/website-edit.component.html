@@ -60,6 +60,9 @@
           <label for="websiteDesp">Website Description</label>
           <textarea [(ngModel)] = "website.description" rows="5" class="form-control" id="websiteDesp" name="websiteDesp"></textarea>
         </div>
+        <div *ngIf="errorFlag" class="alert alert-danger">
+          {{errorMsg}}
+        </div>
       </form>
       <button (click)="deleteWebsite()" class="btn btn-danger btn-block ">Delete</button>
     </div>

@@ -30,11 +30,12 @@ export class LoginComponent implements OnInit {
     this.password = this.loginForm.value.password;
     this.userService.login(this.username, this.password)
       .subscribe((user) => {
-        if (user) {
           console.log(user);
           this.sharedService.user = user;
           this.router.navigate(['profile']);
-        } else {
+      }, (err) => {
+        console.log(err);
+        if (err === 'Unauthorized') {
           this.errorFlag = true;
         }
       });

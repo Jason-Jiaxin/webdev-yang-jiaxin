@@ -11,12 +11,15 @@ module.exports = function (app) {
 
   let passport = require('passport');
   let LocalStrategy = require('passport-local').Strategy;
+  let FacebookStrategy = require('passport-facebook').Strategy;
   passport.serializeUser(serializeUser);
   passport.deserializeUser(deserializeUser);
   passport.use(new LocalStrategy(localStrategy));
 
   app.post('/api/register', register);
   app.post('/api/login', passport.authenticate('local'), login);
+  // app.get ('/facebook/login', passport.authenticate('facebook', { scope : 'email' }));
+  app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
   app.post('/api/logout', logout);
   app.post('/api/loggedIn', loggedIn);
   app.post('/api/user', createUser);
@@ -26,8 +29,32 @@ module.exports = function (app) {
   app.get('/api/user/:userId', findUserById);
   app.put('/api/user/:userId', updateUser);
   app.delete('/api/user/:userId', deleteUser);
+  app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', { successRedirect: '/profile',
+      failureRedirect: '/login' }));
 
+  let facebookConfig = {
+    clientID     : process.env.FACEBOOK_CLIENT_ID? process.env.FACEBOOK_CLIENT_ID : 'test',
+    clientSecret : process.env.FACEBOOK_CLIENT_SECRET? process.env.FACEBOOK_CLIENT_SECRET : 'test',
+    callbackURL  : process.env.FACEBOOK_CALLBACK_URL? process.env.FACEBOOK_CALLBACK_URL : 'test',
+  };
+  passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
+  function facebookStrategy(accessToken, refreshToken, profile, done) {
+    userModel.findUserByFacebookId(profile.id).then(function (user) {
+      if (user) {
+        return done(null, user);
+      } else {
+        let newUser = {facebook: {
+          id:    profile.id,
+          token: accessToken
+        }};
+        userModel.createUser(newUser).then(function (result) {
+          return done(null, result);
+        })
+      }
+    })
+  }
 
   function serializeUser(user, done) {
     done(null, user);
@@ -51,13 +78,16 @@ module.exports = function (app) {
       .findUserByCredentials(username, password)
       .then(
         function(user) {
-          if(user.username === username && user.password === password) {
+          console.log(user);
+          if(user && user.username === username && user.password === password) {
             return done(null, user);
           } else {
+            console.log('passport else no user');
             return done(null, false);
           }
         },
         function(err) {
+          console.log('passport user error');
           if (err) { return done(err); }
         }
       );

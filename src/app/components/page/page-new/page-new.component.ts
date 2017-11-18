@@ -15,6 +15,8 @@ export class PageNewComponent implements OnInit {
   pageName: string;
   pageDesp: string;
   pages;
+  errorFlag: boolean;
+  errorMsg = 'Page name cannot be empty';
 
   constructor(private pageService: PageService, private acRoute: ActivatedRoute, private router: Router) { }
 
@@ -31,6 +33,7 @@ export class PageNewComponent implements OnInit {
 
   createPage() {
     if (this.pageName) {
+      this.errorFlag = false;
       const page = {
         name: this.pageName,
         description: this.pageDesp
@@ -39,6 +42,8 @@ export class PageNewComponent implements OnInit {
         .subscribe((newPage) => {
           this.router.navigate(['user', this.userId, 'website', this.websiteId, 'page']);
         });
+    } else {
+      this.errorFlag = true;
     }
   }
 
