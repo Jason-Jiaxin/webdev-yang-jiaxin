@@ -12,7 +12,7 @@ import {SharedService} from "../../../services/shared.service.client";
 export class ProfileComponent implements OnInit {
 
   userId: string;
-  user = {};
+  user;
   constructor(private userService: UserService, private acRoute: ActivatedRoute,
                private sharedService: SharedService, private router: Router) { }
 
@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUser() {
-    this.userService.updateUser(this.userId, this.user)
+    this.userService.updateUser(this.user._id, this.user)
       .subscribe((user: User) => {
         console.log('user updated from service');
         this.user = user;

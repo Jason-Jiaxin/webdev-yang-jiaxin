@@ -841,7 +841,6 @@ var ProfileComponent = (function () {
         this.acRoute = acRoute;
         this.sharedService = sharedService;
         this.router = router;
-        this.user = {};
     }
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -858,7 +857,7 @@ var ProfileComponent = (function () {
     };
     ProfileComponent.prototype.updateUser = function () {
         var _this = this;
-        this.userService.updateUser(this.userId, this.user)
+        this.userService.updateUser(this.user._id, this.user)
             .subscribe(function (user) {
             console.log('user updated from service');
             _this.user = user;
