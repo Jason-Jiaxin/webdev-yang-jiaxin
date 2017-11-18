@@ -10,7 +10,7 @@ const session = require('express-session');
 const passport = require('passport');
 
 app.use(cookieParser());
-app.use(session({ secret: (process.env.SESSION_SECRET? process.env.SESSION_SECRET : 'secret_for_test') }));
+app.use(session({ secret: (process.env.SESSION_SECRET? process.env.SESSION_SECRET : 'secret_for_test'), resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.json());

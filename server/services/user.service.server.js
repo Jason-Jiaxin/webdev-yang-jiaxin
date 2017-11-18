@@ -45,9 +45,11 @@ module.exports = function (app) {
       if (user) {
         return done(null, user);
       } else {
-        let newUser = {facebook: {
+        let newUser = {
+          email: profile.email,
+          facebook: {
           id:    profile.id,
-          token: accessToken
+          token: accessToken,
         }};
         userModel.createUser(newUser).then(function (result) {
           return done(null, result);
