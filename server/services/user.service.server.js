@@ -19,7 +19,7 @@ module.exports = function (app) {
   app.post('/api/register', register);
   app.post('/api/login', passport.authenticate('local'), login);
   // app.get ('/facebook/login', passport.authenticate('facebook', { scope : 'email' }));
-  app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+  app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email', authType: 'reauthenticate' }));
   app.post('/api/logout', logout);
   app.post('/api/loggedIn', loggedIn);
   app.post('/api/user', createUser);
