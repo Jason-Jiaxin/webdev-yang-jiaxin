@@ -20,7 +20,7 @@ function findUserById(userId) {
 }
 
 function findUserByFacebookId(facebookId) {
-  return User.findOne({'facebook.id': facebookId});
+  return UserModel.findOne({'facebook.id': facebookId});
 }
 
 function findUserByUsername(username){
