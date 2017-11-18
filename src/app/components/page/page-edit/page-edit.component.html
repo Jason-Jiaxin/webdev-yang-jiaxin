@@ -61,6 +61,9 @@
           <label for="pageTitle">Title</label>
           <input [(ngModel)]="page.description" type="text" class="form-control" id="pageTitle" name="pageDesp">
         </div>
+        <div *ngIf="errorFlag" class="alert alert-danger">
+          {{errorMsg}}
+        </div>
       </form>
       <a class="btn btn-danger btn-block" (click)="deletePage()">Delete</a>
     </div>
@@ -70,7 +73,7 @@
 
 <nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
   <p class="navbar-text pull-right jy-nav-right-margin">
-    <a routerLink="/user/{{userId}}" class="navbar-link">
+    <a routerLink="/profile" class="navbar-link">
       <span class="glyphicon glyphicon-user"></span>
     </a>
   </p>

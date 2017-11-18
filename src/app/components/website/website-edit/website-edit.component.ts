@@ -14,6 +14,8 @@ export class WebsiteEditComponent implements OnInit {
   websiteId: string;
   website;
   websites = [];
+  errorFlag: boolean;
+  errorMsg = 'Website name cannot be empty';
 
   constructor(private webService: WebsiteService, private acRoute: ActivatedRoute, private router: Router) { }
 
@@ -41,10 +43,15 @@ export class WebsiteEditComponent implements OnInit {
   }
 
   updateWebsite() {
-    this.webService.updateWebsite(this.websiteId, this.website)
-      .subscribe(() => {
-        this.router.navigate(['user', this.userId, 'website']);
-      });
+    if (this.website.name) {
+      this.errorFlag = false;
+      this.webService.updateWebsite(this.websiteId, this.website)
+        .subscribe(() => {
+          this.router.navigate(['user', this.userId, 'website']);
+        });
+    } else {
+      this.errorFlag = true;
+    }
   }
 
 }

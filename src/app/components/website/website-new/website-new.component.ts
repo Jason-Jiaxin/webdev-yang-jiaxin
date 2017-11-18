@@ -14,6 +14,8 @@ export class WebsiteNewComponent implements OnInit {
   websiteName: string;
   websiteDesp: string;
   websites = [];
+  errorFlag: boolean;
+  errorMsg = 'Website name cannot be empty';
 
   constructor(private webService: WebsiteService, private acRoute: ActivatedRoute, private router: Router) { }
 
@@ -29,6 +31,7 @@ export class WebsiteNewComponent implements OnInit {
 
   createWebsite() {
     if (this.websiteName) {
+      this.errorFlag = false;
       const website = {
         name: this.websiteName,
         description: this.websiteDesp
@@ -37,6 +40,8 @@ export class WebsiteNewComponent implements OnInit {
         .subscribe((newWebsite) => {
           this.router.navigate(['user', this.userId, 'website']);
         });
+    } else {
+      this.errorFlag = true;
     }
   }
 

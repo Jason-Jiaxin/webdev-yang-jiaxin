@@ -9,6 +9,19 @@ module.exports = function (app) {
     {_id: '456', username: 'jannunzi', password: 'jannunzi', firstName: 'Jose',   lastName: 'Annunzi'}
   ];
 
+  let passport = require('passport');
+  let LocalStrategy = require('passport-local').Strategy;
+  let FacebookStrategy = require('passport-facebook').Strategy;
+  passport.serializeUser(serializeUser);
+  passport.deserializeUser(deserializeUser);
+  passport.use(new LocalStrategy(localStrategy));
+
+  app.post('/api/register', register);
+  app.post('/api/login', passport.authenticate('local'), login);
+  // app.get ('/facebook/login', passport.authenticate('facebook', { scope : 'email' }));
+  app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+  app.post('/api/logout', logout);
+  app.post('/api/loggedIn', loggedIn);
   app.post('/api/user', createUser);
   app.get('/api/user', findUsers);
   // app.get('/api/user?username=username', findUserByUsername);
@@ -16,6 +29,97 @@ module.exports = function (app) {
   app.get('/api/user/:userId', findUserById);
   app.put('/api/user/:userId', updateUser);
   app.delete('/api/user/:userId', deleteUser);
+  app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', { successRedirect: '/profile',
+      failureRedirect: '/login' }));
+
+  let facebookConfig = {
+    clientID     : process.env.FACEBOOK_CLIENT_ID? process.env.FACEBOOK_CLIENT_ID : 'test',
+    clientSecret : process.env.FACEBOOK_CLIENT_SECRET? process.env.FACEBOOK_CLIENT_SECRET : 'test',
+    callbackURL  : process.env.FACEBOOK_CALLBACK_URL? process.env.FACEBOOK_CALLBACK_URL : 'test',
+  };
+  passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+
+  function facebookStrategy(accessToken, refreshToken, profile, done) {
+    userModel.findUserByFacebookId(profile.id).then(function (user) {
+      if (user) {
+        return done(null, user);
+      } else {
+        let newUser = {facebook: {
+          id:    profile.id,
+          token: accessToken
+        }};
+        userModel.createUser(newUser).then(function (result) {
+          return done(null, result);
+        })
+      }
+    })
+  }
+
+  function serializeUser(user, done) {
+    done(null, user);
+  }
+
+  function deserializeUser(user, done) {
+    userModel.findUserById(user._id)
+      .then(
+        function(user){
+          done(null, user);
+        },
+        function(err){
+          done(err, null);
+        }
+      );
+  }
+
+  function localStrategy(username, password, done) {
+    console.log('passport local strategy');
+    userModel
+      .findUserByCredentials(username, password)
+      .then(
+        function(user) {
+          console.log(user);
+          if(user && user.username === username && user.password === password) {
+            return done(null, user);
+          } else {
+            console.log('passport else no user');
+            return done(null, false);
+          }
+        },
+        function(err) {
+          console.log('passport user error');
+          if (err) { return done(err); }
+        }
+      );
+  }
+
+  function register(req, res) {
+    let user = req.body;
+    userModel
+      .createUser(user)
+      .then(function(user){
+        req.login(user, function(err) {
+          res.json(user);
+        });
+      });
+  }
+
+  function login(req, res) {
+    res.json(req.user);
+  }
+
+  function logout(req, res) {
+    req.logOut();
+    res.send(200);
+  }
+
+  function loggedIn(req, res) {
+    if(req.isAuthenticated()) {
+      res.json(req.user);
+    } else {
+      res.send('0');
+    }
+  }
 
   function createUser(req, res) {
     let user = req.body;

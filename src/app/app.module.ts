@@ -34,6 +34,8 @@ import { QuillEditorModule } from 'ngx-quill-editor';
 import { WidgetHtmlComponent } from './components/widget/widget-edit/widget-html/widget-html.component';
 import { WidgetTextComponent } from './components/widget/widget-edit/widget-text/widget-text.component';
 import {SafeHtmlPipe} from './pipes/safe.html.pipe';
+import {SharedService} from "./services/shared.service.client";
+import {AuthenticationService} from "./services/authentication.service.client";
 
 @NgModule({
   // Declare components here
@@ -70,7 +72,7 @@ import {SafeHtmlPipe} from './pipes/safe.html.pipe';
     QuillEditorModule
   ],
   // Client Side services here
-  providers: [UserService, WebsiteService, PageService, WidgetService, TestService, FlickrService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, TestService, FlickrService, SharedService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -35,12 +35,15 @@
       <app-widget-text [widget]="widget"></app-widget-text>
     </div>
   </div>
+  <div *ngIf="errorFlag" class="alert alert-danger">
+    {{errorMsg}}
+  </div>
   <a (click)="deleteWidget()" class="btn btn-danger btn-block jy-margin-top-5" >Delete</a>
 </div>
 
 <nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
   <p class="navbar-text pull-right jy-nav-right-margin">
-    <a routerLink="/user/{{userId}}" class="navbar-link">
+    <a routerLink="/profile" class="navbar-link">
       <span class="glyphicon glyphicon-user"></span>
     </a>
   </p>

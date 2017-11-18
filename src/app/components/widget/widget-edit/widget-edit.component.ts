@@ -19,6 +19,8 @@ export class WidgetEditComponent implements OnInit {
   YOUTUBE = 'YOUTUBE';
   HTML = 'HTML';
   INPUT = 'INPUT';
+  errorFlag: boolean;
+  errorMsg = 'Widget name cannot be empty';
 
   constructor(private widgetService: WidgetService, private acRoute: ActivatedRoute, private router: Router) { }
 
@@ -46,10 +48,15 @@ export class WidgetEditComponent implements OnInit {
   }
 
   updateWidget() {
-    this.widgetService.updateWidget(this.widgetId, this.widget)
-      .subscribe((widget) => {
-        this.router.navigate(['user', this.userId, 'website',
-          this.websiteId, 'page', this.pageId, 'widget']);
-      });
+    if (this.widget.name) {
+      this.errorFlag = false;
+      this.widgetService.updateWidget(this.widgetId, this.widget)
+        .subscribe((widget) => {
+          this.router.navigate(['user', this.userId, 'website',
+            this.websiteId, 'page', this.pageId, 'widget']);
+        });
+    } else {
+      this.errorFlag = true;
+    }
   }
 }

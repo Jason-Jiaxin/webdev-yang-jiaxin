@@ -63,6 +63,9 @@
           <input [(ngModel)]="pageDesp" type="text" class="form-control" id="pageTitle"
                  name="pageDesp" placeholder="Page Title">
         </div>
+        <div *ngIf="errorFlag" class="alert alert-danger">
+          {{errorMsg}}
+        </div>
       </form>
     </div>
   </div>
@@ -71,7 +74,7 @@
 
 <nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
   <p class="navbar-text pull-right jy-nav-right-margin">
-    <a routerLink="/user/{{userId}}" class="navbar-link">
+    <a routerLink="/profile" class="navbar-link">
       <span class="glyphicon glyphicon-user"></span>
     </a>
   </p>

@@ -38,15 +38,14 @@
   </form>
   <a class="btn btn-primary btn-block"
      routerLink="/user/{{user._id}}/website">Websites</a>
-  <a class="btn btn-danger btn-block "
-     routerLink="/login" >Logout</a>
+  <a class="btn btn-danger btn-block" (click)="logout()" >Logout</a>
 
 </div>
 
 <!-- Footer -->
 <nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
   <p class="navbar-text pull-right jy-nav-right-margin">
-    <a *ngIf="user" routerLink="/user/{{user._id}}" class="navbar-link">
+    <a *ngIf="user" routerLink="/profile" class="navbar-link">
       <span class="glyphicon glyphicon-user"></span>
     </a>
   </p>
