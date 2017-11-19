@@ -84,6 +84,8 @@ module.exports = function (app) {
       .then(
         function(user) {
           console.log(user);
+          console.log('input pass: ' + password);
+          console.log('compare: ' + bcrypt.compareSync(password, user.password));
           if(user && user.username === username && bcrypt.compareSync(password, user.password)) {
             return done(null, user);
           } else {
