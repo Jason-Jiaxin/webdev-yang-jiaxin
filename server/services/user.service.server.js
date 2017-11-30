@@ -49,7 +49,11 @@ module.exports = function (app) {
         console.log(accessToken);
         return done(null, user);
       } else {
+        let names = profile.displayName.split(" ");
         let newUser = {
+          lastName:  names[1],
+          firstName: names[0],
+          email:     profile.emails? profile.emails[0].value : "",
           facebook: {
           id:    profile.id,
           token: accessToken,
