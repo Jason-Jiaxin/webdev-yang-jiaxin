@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import {SharedService} from './shared.service.client';
 import 'rxjs/add/operator/catch';
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 // injecting service into module
 @Injectable()

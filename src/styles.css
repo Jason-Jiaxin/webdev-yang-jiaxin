@@ -57,10 +57,10 @@ input {
 .jy-widget-content {
   width: 100%;
 }
-
 a:not([href]) {
   cursor: pointer;
 }
+
 
 .ui-state-highlight {
   height: 1.5em;
