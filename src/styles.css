@@ -70,3 +70,7 @@ a:not([href]) {
 .jy-image-border {
   border: 2px solid red;
 }
+
+.jy-mw-800 {
+  max-width: 800px;
+}
