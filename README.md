@@ -8,9 +8,9 @@ This repository is used to host my assignments and project for fall 2017 web dev
 
 ### Links
 
-[Heroku](https://webdev-yang-jiaxin.herokuapp.com/).
+[Assignment Home Page](https://webdev-yang-jiaxin.herokuapp.com/).
 
-[Project].
+[Project Home Page](https://photoshare-yang-jiaxin.herokuapp.com/).
 
-[Assignment](https://webdev-yang-jiaxin.herokuapp.com/login).
+[Project Github Repository](https://github.com/Jason-Jiaxin/photoshare-yang-jiaxin).
 
